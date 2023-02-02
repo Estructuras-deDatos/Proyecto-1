@@ -24,8 +24,12 @@ public class Grafo {
     public boolean ExisteArista(Object origen, Object destino) {
         NodoV nodoOrigen = this.BuscarVertice(origen);
         NodoV nodoDestino = this.BuscarVertice(destino);
+        System.out.println(nodoOrigen.getOrigen());
+        if (nodoOrigen!=null){
         Object resultado = nodoOrigen.BuscarArista(nodoDestino);
         return resultado != null;
+        }
+        else{return false;}
     }
 
     public boolean ExisteVertice(Object vertice) {
@@ -35,7 +39,7 @@ public class Grafo {
         else {return false;}
     }
 
-    public void NuevoVertice(Object origen) {
+    public void InsertarVertice(Object origen) {
         NodoV nuevoNodo = new NodoV(origen);
         if (Pvertice != null) {
             nuevoNodo.setAnt(Fvertice);
@@ -47,7 +51,16 @@ public class Grafo {
         tamano++;
         }
    
-
+    public void NuevoVertice(Object origen){
+        if (this.tamano!=0){
+            if(!this.ExisteVertice(origen)){
+                this.InsertarVertice(origen);
+            }
+            else { System.out.println("Cannot add item \n Already exists");
+        }}
+            else {this.InsertarVertice(origen);}
+    }
+        
     /*primitiva que busca un vertice segun el ID del vertice y retorna el Nodo V
     correspondiente al ID buscado, retorna Null si no lo encuentra
      */
@@ -76,7 +89,19 @@ public class Grafo {
     }
 
     public void NuevaArista(NodoV origen, NodoV destino, float peso) {
-        origen.InsertarArista(peso, destino);
+        if (origen.getnAristas()!=0){
+            if(!ExisteArista(origen.getOrigen(), destino.getOrigen())){
+                origen.InsertarArista(peso, destino);
+                System.out.println("ARC created");
+            }
+            else{
+                System.out.println("The arc already exists");
+            }
+        }
+        else{
+            origen.InsertarArista(peso, destino);
+        }
+            
     }
 
     /* Imprime todos los IDs de la lista de vertices del grafo*/

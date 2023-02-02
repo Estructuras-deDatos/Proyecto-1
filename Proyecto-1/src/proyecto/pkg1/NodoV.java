@@ -33,7 +33,7 @@ public class NodoV {
             return fAdy;
         }
         else {
-            NodoA aux=ady.getSig();
+            NodoA aux=ady;
             boolean encontrado=false;
             NodoA retorno = null;
         while (aux.getSig()!= null){
