@@ -15,12 +15,19 @@ public class Proyecto1 {
      */
     public static void main(String[] args) {
       Grafo grafoPrueba = new Grafo();
-      int[] array = {1,2,3,4,5,5,4,9};
+      String[] array = {"A","B","C","D","E","F","G"};
       
-      for (int i=0; i<8;i++ ){
-          grafoPrueba.NuevoVertice(array[i]);
+      for (int i=0; i<7;i++ ){
+          grafoPrueba.NewVertex(array[i]);
       }
-      grafoPrueba.ImprimirVertices();
+      String[] array2 = {"B","C","D","E","F","G"};
+      for (int i=0;i<6;i++){
+          grafoPrueba.NewArc("A", array2[i], i+1);
+      }
+      
+      NodoV arc=grafoPrueba.vertex.Search("A");
+        System.out.println(arc.PrintArcs());
+        System.out.println(grafoPrueba.PrintVertex());
       
       
     }

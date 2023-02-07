@@ -8,73 +8,33 @@ package proyecto.pkg1;
  *
  * @author andre
  */
-public class NodoA {
-    private NodoV destino;
-    private NodoA sig;
-    private NodoA ant;
-    private float peso;
+public class NodoA extends Nodo {
     
-    public NodoA(NodoV destino){
-        this.destino=destino;
-        this.sig=null;
-        this.ant=null;
-        this.peso=0;         
-    }
+    
+  
+    private float weight;
 
-    /**
-     * @return the destino
-     */
-    public NodoV getDestino() {
-        return destino;
+    public NodoA(Object data) {
+        super(data);
+        this.weight = 0;
     }
-
-    /**
-     * @param destino the destino to set
-     */
-    public void setDestino(NodoV destino) {
-        this.destino = destino;
-    }
-
-    /**
-     * @return the sig
-     */
-    public NodoA getSig() {
-        return sig;
-    }
-
-    /**
-     * @param sig the sig to set
-     */
-    public void setSig(NodoA sig) {
-        this.sig = sig;
-    }
-
+    
     /**
      * @return the peso
      */
-    public float getPeso() {
-        return peso;
+    public float getWeight() {
+        return weight;
     }
 
     /**
-     * @param peso the peso to set
+     * @param weight
      */
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    /**
-     * @return the ant
-     */
-    public NodoA getAnt() {
-        return ant;
-    }
-
-    /**
-     * @param ant the ant to set
-     */
-    public void setAnt(NodoA ant) {
-        this.ant = ant;
+    public void setWeight(float weight) {
+        this.weight = weight;
     }
     
+    
+    
+
+   
 }
