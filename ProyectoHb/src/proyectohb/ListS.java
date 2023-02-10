@@ -15,6 +15,7 @@ public class ListS {
     private NodoP pLast;
     private int size;
     
+    
     public ListS(){
         this.pFirst = null;
         this.pLast = null;

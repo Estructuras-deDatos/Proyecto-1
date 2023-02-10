@@ -24,6 +24,7 @@ public class ProyectoHb {
         System.out.println(como.getNext());
         lista.Remove("qui");
         lista.Remove("Laptop");
+        lista.Remove("si");
         lista.Remove("cuestion");
         System.out.println(lista.Print());
         
