@@ -20,7 +20,11 @@ public class ProyectoHb {
         lista.Insert("cuestion", 0);
         lista.Insert("qui", 21);
         lista.Insert("como", 17);
+        NodoP como = lista.Search("como");
+        System.out.println(como.getNext());
         lista.Remove("qui");
+        lista.Remove("Laptop");
+        lista.Remove("cuestion");
         System.out.println(lista.Print());
         
         

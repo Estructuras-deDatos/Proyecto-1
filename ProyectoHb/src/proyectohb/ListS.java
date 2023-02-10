@@ -44,31 +44,47 @@ public class ListS {
         }
     }
     
-    public void Remove (String name){
+    
+    public void Remove(String name){
+    
+        NodoP actual;
+        boolean encontrado = false;
+        actual = pFirst;
         
-        NodoP aux = (NodoP) pFirst;
-        NodoP auxNext = (NodoP)pFirst.getNext();
-        if (name.equals(pFirst.getNameP())){
-            auxNext.setBefore(null);
-            this.setpFirst(auxNext);
-        }
-        else if(name.equals(pLast.getNameP())){
-            pLast.getBefore().setNext(null);
-        }
-        else{
-            
-            while(auxNext != null){
-                if(aux.getNameP().equals(name)){
-                    aux.getBefore().setNext(auxNext);
-                    auxNext.setBefore(aux.getBefore());
-                }
-                else{
-                    aux= (NodoP)aux.getNext();
-                    auxNext= (NodoP) auxNext.getNext();
-                }
+        while ((actual != null) && (!encontrado)){
+            encontrado = (actual.getNameP().equals(name));
+            if (!encontrado){
+                actual = actual.getNext();
             }
+        
         }
+        
+        if (actual != null){
+            if (actual.getNameP().equals(pFirst.getNameP())){
+                pFirst = actual.getNext();
+                if(actual.getNext() != null){
+                    actual.getNext().setBefore(null);
+                
+                }
+            } else if(actual.getNext() != null){
+                actual.getBefore().setNext(actual.getNext());
+                actual.getNext().setBefore(actual.getBefore());
+            
+            } else {
+                actual.getBefore().setNext(null);
+            }
+            
+            actual = null;
+        
+        
+        }
+    
     }
+    
+    public boolean isEmpty(){
+        return pFirst == null;
+    }
+    
     
     public String Print(){
         
