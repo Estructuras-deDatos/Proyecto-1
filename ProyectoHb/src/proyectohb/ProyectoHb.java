@@ -15,6 +15,15 @@ public class ProyectoHb {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        ListS lista = new ListS();
+        lista.Insert("Laptop", 20);
+        lista.Insert("cuestion", 0);
+        lista.Insert("qui", 21);
+        lista.Insert("como", 17);
+        lista.Remove("qui");
+        System.out.println(lista.Print());
+        
+        
     }
     
 }
