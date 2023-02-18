@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyecto.pkg1;
+package proyecto.pkg1.grafo;
+
+import proyecto.pkg1.abstracts.List;
 
 /**
  *
@@ -70,7 +72,8 @@ public class ListA extends List {
         String toPrint="";
         NodoA index;
         for (index=(NodoA)pFirst; index!=null; index=(NodoA)index.getNext()){
-            Object routeName=index.getData();
+            NodoV destination=(NodoV)index.getData();
+            String routeName= (String) destination.getData(); 
             String routeWeight=Float.toString(index.getWeight());
             String route="->"+routeName+"\n"+routeWeight+"\n";
             

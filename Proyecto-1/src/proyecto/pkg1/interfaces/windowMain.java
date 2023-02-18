@@ -4,8 +4,7 @@
  */
 package proyecto.pkg1.interfaces;
 
-import proyecto.pkg1.interfaces.Grafo.windowGrafo;
-import proyecto.pkg1.interfaces.Pedidos.window1Pedidos;
+import proyecto.pkg1.grafo.Grafo;
 import proyecto.pkg1.interfaces.stock.windowStock;
 
 /**
@@ -14,6 +13,8 @@ import proyecto.pkg1.interfaces.stock.windowStock;
  */
 public class windowMain extends javax.swing.JFrame {
 
+    public static Grafo grafo;
+    
     /**
      * Creates new form windowAdminHome
      */
@@ -62,7 +63,7 @@ public class windowMain extends javax.swing.JFrame {
                 verGrafoButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(verGrafoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 140, 120));
+        jPanel1.add(verGrafoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 140, 120));
 
         disponibilidadButton.setBackground(new java.awt.Color(153, 204, 255));
         disponibilidadButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -79,7 +80,7 @@ public class windowMain extends javax.swing.JFrame {
                 disponibilidadButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(disponibilidadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 210, 120));
+        jPanel1.add(disponibilidadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 230, 120));
 
         gestionStockButton.setBackground(new java.awt.Color(153, 204, 255));
         gestionStockButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -96,7 +97,7 @@ public class windowMain extends javax.swing.JFrame {
                 gestionStockButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(gestionStockButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 210, 120));
+        jPanel1.add(gestionStockButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 220, 120));
 
         pedidoButton.setBackground(new java.awt.Color(153, 204, 255));
         pedidoButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -128,7 +129,7 @@ public class windowMain extends javax.swing.JFrame {
         cargarArchivoButton1.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
         cargarArchivoButton1.setForeground(new java.awt.Color(0, 0, 0));
         cargarArchivoButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/pkg1/interfaces/images/fileIcon.png"))); // NOI18N
-        cargarArchivoButton1.setText("Cargar Archivo");
+        cargarArchivoButton1.setText("Administrar Archivo");
         cargarArchivoButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cargarArchivoButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cargarArchivoButton1.setOpaque(true);
@@ -139,9 +140,9 @@ public class windowMain extends javax.swing.JFrame {
                 cargarArchivoButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(cargarArchivoButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 140, 120));
+        jPanel1.add(cargarArchivoButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 170, 120));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 390));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -166,7 +167,9 @@ public class windowMain extends javax.swing.JFrame {
     }//GEN-LAST:event_pedidoButtonActionPerformed
 
     private void cargarArchivoButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarArchivoButton1ActionPerformed
-        // TODO add your handling code here:
+        windowCargar windowCargar = new windowCargar();
+        windowCargar.setVisible(true);
+        windowCargar.setLocationRelativeTo(null);
     }//GEN-LAST:event_cargarArchivoButton1ActionPerformed
 
     /**

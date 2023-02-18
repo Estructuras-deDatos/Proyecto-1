@@ -2,30 +2,41 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyecto.pkg1;
+package proyecto.pkg1.grafo;
+
+import proyecto.pkg1.abstracts.Nodo;
 
 /**
  *
  * @author andre
  */
 public class NodoV extends Nodo {
+
+   
     
-    ListA ady;
+    public ListS stock;
+    public ListA ady;
 
     public NodoV(Object data) {
         super(data);
         this.ady=null;
+        this.stock= new ListS();
+    }
+    
+    
+    public void newStockP(String nameP, int stock){
+        this.stock.Insert(nameP, stock);
     }
     
     public boolean HasArcs(){
-        return ady!=null;
+        return getAdy()!=null;
     }
     public void CreateArc(float weight, NodoV destination){
         if (HasArcs()){
-            if(ady.Search(destination)==null){
+            if(getAdy().Search(destination)==null){
                 NodoA newNodo = new NodoA(destination);
                 newNodo.setWeight(weight);
-                ady.Insert(newNodo);
+                getAdy().Insert(newNodo);
                 
             }
         }
@@ -33,7 +44,7 @@ public class NodoV extends Nodo {
             ady= new ListA();
             NodoA newNodo = new NodoA(destination);
             newNodo.setWeight(weight);
-            ady.Insert(newNodo);
+            getAdy().Insert(newNodo);
         }
                 
         
@@ -44,13 +55,32 @@ public class NodoV extends Nodo {
         String toPrint = "";
         toPrint+=this.getData();
         
-        toPrint+=ady.Print();
+        toPrint+=getAdy().Print();
         
         return toPrint;  
     }
     
     public int getnArcs(){
-        return this.ady.getSize();
+        return this.getAdy().getSize();
     }
-    
+
+    /**
+     * @return the stock
+     */
+    public ListS getStock() {
+        return stock;
+    }
+
+    /**
+     * @param stock the stock to set
+     */
+    public void setStock(ListS stock) {
+        this.stock = stock;
+    }
+     /**
+     * @return the ady
+     */
+    public ListA getAdy() {
+        return ady;
+    }
 }

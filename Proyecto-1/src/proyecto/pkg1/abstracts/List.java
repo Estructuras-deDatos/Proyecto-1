@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyecto.pkg1;
+package proyecto.pkg1.abstracts;
 
 import java.beans.PropertyChangeSupport;
 
@@ -41,7 +41,7 @@ public abstract class List {
      * @param pFirst the pFirst to set
      */
     public void setpFirst(Nodo pFirst) {
-        proyecto.pkg1.Nodo oldpFirst = this.pFirst;
+        proyecto.pkg1.abstracts.Nodo oldpFirst = this.pFirst;
         this.pFirst = pFirst;
         propertyChangeSupport.firePropertyChange(PROP_PFIRST, oldpFirst, pFirst);
     }
@@ -57,7 +57,7 @@ public abstract class List {
      * @param pLast the pLast to set
      */
     public void setpLast(Nodo pLast) {
-        proyecto.pkg1.Nodo oldpLast = this.pLast;
+        proyecto.pkg1.abstracts.Nodo oldpLast = this.pLast;
         this.pLast = pLast;
         propertyChangeSupport.firePropertyChange(PROP_PLAST, oldpLast, pLast);
     }
