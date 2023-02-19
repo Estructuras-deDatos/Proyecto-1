@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package proyecto.pkg1.interfaces;
-
+import javax.swing.JButton;
 import proyecto.pkg1.grafo.Grafo;
-import proyecto.pkg1.grafo.NodoV;
-import proyecto.pkg1.grafo.functions;
-import proyecto.pkg1.interfaces.stock.windowStock;
 
 /**
  *
@@ -16,13 +9,18 @@ import proyecto.pkg1.interfaces.stock.windowStock;
 public class windowMain extends javax.swing.JFrame {
 
     public static Grafo grafo;
+    static public auxFunctions auxFunc;
     
     /**
      * Creates new form windowAdminHome
      */
     public windowMain() {
         initComponents();
-        setLocationRelativeTo(null); 
+        setSize(700, 600);
+        setLocationRelativeTo(null);
+        auxFunc = new auxFunctions();
+        JButton[] buttons = {pedidoButton,verGrafoButton, disponibilidadButton, gestionStockButton}; 
+        auxFunc.verifyFile(buttons);
     }
 
     /**
@@ -34,7 +32,7 @@ public class windowMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelPanel = new javax.swing.JPanel();
         verGrafoButton = new javax.swing.JButton();
         disponibilidadButton = new javax.swing.JButton();
         gestionStockButton = new javax.swing.JButton();
@@ -44,11 +42,15 @@ public class windowMain extends javax.swing.JFrame {
         cargarArchivoButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Página Principal");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelPanel.setBackground(new java.awt.Color(255, 255, 255));
+        panelPanel.setMaximumSize(new java.awt.Dimension(700, 600));
+        panelPanel.setMinimumSize(new java.awt.Dimension(700, 600));
+        panelPanel.setPreferredSize(new java.awt.Dimension(700, 600));
+        panelPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         verGrafoButton.setBackground(new java.awt.Color(153, 204, 255));
         verGrafoButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -65,7 +67,7 @@ public class windowMain extends javax.swing.JFrame {
                 verGrafoButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(verGrafoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 140, 120));
+        panelPanel.add(verGrafoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 180, 130));
 
         disponibilidadButton.setBackground(new java.awt.Color(153, 204, 255));
         disponibilidadButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -82,7 +84,7 @@ public class windowMain extends javax.swing.JFrame {
                 disponibilidadButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(disponibilidadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 230, 120));
+        panelPanel.add(disponibilidadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 130));
 
         gestionStockButton.setBackground(new java.awt.Color(153, 204, 255));
         gestionStockButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -99,7 +101,7 @@ public class windowMain extends javax.swing.JFrame {
                 gestionStockButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(gestionStockButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 220, 120));
+        panelPanel.add(gestionStockButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 260, 130));
 
         pedidoButton.setBackground(new java.awt.Color(153, 204, 255));
         pedidoButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -116,16 +118,16 @@ public class windowMain extends javax.swing.JFrame {
                 pedidoButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(pedidoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 140, 120));
+        panelPanel.add(pedidoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 180, 130));
 
-        jLabel1.setFont(new java.awt.Font("Kannada Sangam MN", 2, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Home");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 70, -1));
+        jLabel1.setText("Menú ");
+        panelPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 80, -1));
 
         jSeparator1.setForeground(new java.awt.Color(153, 204, 255));
         jSeparator1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 570, 40));
+        panelPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 710, 40));
 
         cargarArchivoButton1.setBackground(new java.awt.Color(153, 204, 255));
         cargarArchivoButton1.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
@@ -142,9 +144,9 @@ public class windowMain extends javax.swing.JFrame {
                 cargarArchivoButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(cargarArchivoButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 170, 120));
+        panelPanel.add(cargarArchivoButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 210, 130));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 450));
+        getContentPane().add(panelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -152,12 +154,7 @@ public class windowMain extends javax.swing.JFrame {
     private void verGrafoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGrafoButtonActionPerformed
         windowGrafo windowGrafo1 = new windowGrafo();
         windowGrafo1.show();
-        functions.create_graph(grafo);
-        NodoV first = (NodoV) grafo.getList().Search("B");
-        NodoV last = (NodoV) grafo.getList().Search("E");
-        Object[] result =functions.getWay(first, last);
-        System.out.println(result[0]+"\n"+result[1]);
-      
+        this.setVisible(false);
     }//GEN-LAST:event_verGrafoButtonActionPerformed
 
     private void disponibilidadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disponibilidadButtonActionPerformed
@@ -175,9 +172,9 @@ public class windowMain extends javax.swing.JFrame {
     }//GEN-LAST:event_pedidoButtonActionPerformed
 
     private void cargarArchivoButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarArchivoButton1ActionPerformed
+        setVisible(false);
         windowCargar windowCargar = new windowCargar();
-        windowCargar.setVisible(true);
-        windowCargar.setLocationRelativeTo(null);
+        windowCargar.show(true);
     }//GEN-LAST:event_cargarArchivoButton1ActionPerformed
 
     /**
@@ -221,8 +218,8 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JButton disponibilidadButton;
     private javax.swing.JButton gestionStockButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel panelPanel;
     private javax.swing.JButton pedidoButton;
     private javax.swing.JButton verGrafoButton;
     // End of variables declaration//GEN-END:variables

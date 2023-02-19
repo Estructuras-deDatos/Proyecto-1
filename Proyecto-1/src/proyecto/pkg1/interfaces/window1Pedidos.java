@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package proyecto.pkg1.interfaces;
+import javax.swing.JOptionPane;
+import proyecto.pkg1.grafo.ListV;
 
 /**
  *
@@ -14,7 +12,9 @@ public class window1Pedidos extends javax.swing.JFrame {
      * Creates new form windowPedidos
      */
     public window1Pedidos() {
+        setUndecorated(true);
         initComponents();
+        setSize(700, 600);
         setLocationRelativeTo(null); 
     }
 
@@ -28,19 +28,19 @@ public class window1Pedidos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        continuarButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        nombreCompletoTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         cedulaTextField = new javax.swing.JTextField();
-        nombreCompletoTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        continuarButton = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        regresarButton = new javax.swing.JButton();
+        auxFunctions auxfunctions = new auxFunctions();
+        almacenesList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pedidos");
@@ -49,56 +49,6 @@ public class window1Pedidos extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Kannada Sangam MN", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Realizar Pedidos");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 180, -1));
-
-        jSeparator1.setForeground(new java.awt.Color(153, 204, 255));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 570, 10));
-
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Almacenes Disponibles");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
-
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Nombre Completo:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, -1));
-
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Cédula: ");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
-
-        cedulaTextField.setBackground(new java.awt.Color(204, 204, 204));
-        cedulaTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jPanel2.add(cedulaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 160, -1));
-
-        nombreCompletoTextField.setBackground(new java.awt.Color(204, 204, 204));
-        nombreCompletoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        nombreCompletoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreCompletoTextFieldActionPerformed(evt);
-            }
-        });
-        jPanel2.add(nombreCompletoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 160, -1));
-
-        jScrollPane1.setBackground(new java.awt.Color(153, 204, 255));
-
-        jList1.setBackground(new java.awt.Color(204, 204, 204));
-        jList1.setForeground(new java.awt.Color(0, 0, 0));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 300, 140));
 
         continuarButton.setBackground(new java.awt.Color(153, 204, 255));
         continuarButton.setForeground(new java.awt.Color(0, 0, 0));
@@ -110,44 +60,117 @@ public class window1Pedidos extends javax.swing.JFrame {
                 continuarButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(continuarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 130, 30));
+        jPanel1.add(continuarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 200, 30));
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Ingrese los siguientes datos:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Cédula: ");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 60, -1));
 
-        regresarButton.setBackground(new java.awt.Color(153, 204, 255));
-        regresarButton.setForeground(new java.awt.Color(0, 0, 0));
-        regresarButton.setText("Regresar");
-        regresarButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        regresarButton.setOpaque(true);
-        regresarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regresarButtonActionPerformed(evt);
+        nombreCompletoTextField.setBackground(new java.awt.Color(204, 204, 204));
+        nombreCompletoTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        nombreCompletoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreCompletoTextFieldKeyTyped(evt);
             }
         });
-        jPanel2.add(regresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 20));
+        jPanel1.add(nombreCompletoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 220, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 390));
+        jLabel3.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Nombre Completo:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 390));
+        jLabel5.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Almacenes Disponibles");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+
+        backButton.setBackground(new java.awt.Color(153, 204, 255));
+        backButton.setForeground(new java.awt.Color(0, 0, 0));
+        backButton.setText("<  Atrás");
+        backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        backButton.setOpaque(true);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 30));
+
+        jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Realizar Pedidos");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 190, -1));
+
+        jSeparator1.setForeground(new java.awt.Color(153, 204, 255));
+        jSeparator1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 710, 10));
+
+        jLabel7.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Ingrese los siguientes datos:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
+
+        cedulaTextField.setBackground(new java.awt.Color(204, 204, 204));
+        cedulaTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cedulaTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cedulaTextFieldActionPerformed(evt);
+            }
+        });
+        cedulaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cedulaTextFieldKeyTyped(evt);
+            }
+        });
+        jPanel1.add(cedulaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 220, -1));
+
+        almacenesList.setBackground(new java.awt.Color(204, 204, 204));
+        almacenesList.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 14)); // NOI18N
+        almacenesList.setForeground(new java.awt.Color(0, 0, 0));
+        almacenesList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = auxfunctions.almacenNames();
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        almacenesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        almacenesList.setSelectionBackground(new java.awt.Color(153, 204, 255));
+        jScrollPane1.setViewportView(almacenesList);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 370, 230));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_regresarButtonActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        windowMain main = new windowMain();
+        main.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     private void continuarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuarButtonActionPerformed
-        window2Pedidos window2Pedidos = new window2Pedidos();
-        window2Pedidos.show();
+
+        if(windowMain.auxFunc.enabledButtons(nombreCompletoTextField, cedulaTextField, continuarButton) && windowMain.auxFunc.checkListSelec(almacenesList)){ 
+            window2Pedidos pedidos2 = new window2Pedidos();
+            this.setVisible(false);
+            pedidos2.show();
+        }
     }//GEN-LAST:event_continuarButtonActionPerformed
 
-    private void nombreCompletoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCompletoTextFieldActionPerformed
+    private void nombreCompletoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCompletoTextFieldKeyTyped
+        windowMain.auxFunc.verifyString(evt, nombreCompletoTextField, 15);
+    }//GEN-LAST:event_nombreCompletoTextFieldKeyTyped
+
+    private void cedulaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreCompletoTextFieldActionPerformed
+    }//GEN-LAST:event_cedulaTextFieldActionPerformed
+
+    private void cedulaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cedulaTextFieldKeyTyped
+        windowMain.auxFunc.verifyInt(evt, cedulaTextField, 9);
+    }//GEN-LAST:event_cedulaTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -186,19 +209,18 @@ public class window1Pedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> almacenesList;
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField cedulaTextField;
     private javax.swing.JButton continuarButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nombreCompletoTextField;
-    private javax.swing.JButton regresarButton;
     // End of variables declaration//GEN-END:variables
 }
