@@ -9,12 +9,160 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import javax.swing.JOptionPane;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
+
 
 /**
  *
  * @author andre
  */
 public class functions {
+    
+    public static NodoV find_beginning(Grafo grafo){
+        ListV vertex = grafo.getList();
+        NodoV aux =(NodoV) vertex.getpFirst();
+        NodoV beginning = aux;
+        int comp;
+        String name;
+        while(aux!=null){
+            name=(String)beginning.getData();
+            comp = name.compareTo((String)aux.getData());
+            if(comp>0){
+                beginning = aux;
+            }
+            aux=(NodoV) aux.getNext();
+        }
+        return beginning;
+    }
+    
+    public static boolean has_been_visited(Object aux, ListV visited){
+       return visited.Search(aux)!=null;
+    }
+    
+    public static String BFS_report(Grafo grafo){
+        String report = "Recorrido en Amplitud de la Disponibilidad de los Almacenes:\n";
+        if(!grafo.IsEmpty()){
+            Queue queue = new Queue();
+            ListV visited = new ListV();
+            NodoV beg = find_beginning(grafo);
+            queue.queue(beg);
+            NodoV aux;
+            while(!queue.isEmpty()){
+                aux=queue.dequeue();
+                if(!has_been_visited(aux.getData(), visited)){
+                    report+= "Almacen "+(String)aux.getData()+": \n";
+                    report+=aux.print_stock();
+                    visited.Insert(aux.getData());
+                }
+                NodoA auxAdy = (NodoA) aux.getAdy().getpFirst();
+                while(auxAdy!=null){
+                    NodoV data =(NodoV) auxAdy.getData();
+                    if(!has_been_visited(data.getData(), visited)){
+                        queue.queue((NodoV)auxAdy.getData());
+                    }
+                    auxAdy=(NodoA)auxAdy.getNext();
+                }
+            }
+        
+        }else{
+           report+="Estructura vacia\n";
+        }
+        
+        return report;
+    }
+    
+    public static String DFS_report(Grafo grafo){
+        String report = "Recorrido en Profundidad de la Disponibilidad de los Almacenes:\n";
+        if(!grafo.IsEmpty()){
+            Stack stack = new Stack();
+            ListV visited = new ListV();
+            NodoV beg = find_beginning(grafo);
+            stack.push(beg);
+            NodoV aux;
+            while(!stack.isEmpty()){
+                aux=stack.pop();
+                if(!has_been_visited(aux.getData(), visited)){
+                    report+= "Almacen "+(String)aux.getData()+": \n";
+                    report+=aux.print_stock();
+                    visited.Insert(aux.getData());
+                }
+                NodoA auxAdy = (NodoA) aux.getAdy().getpFirst();
+                while(auxAdy!=null){
+                    NodoV data =(NodoV) auxAdy.getData();
+                    if(!has_been_visited(data.getData(), visited)){
+                        stack.push((NodoV)auxAdy.getData());
+                    }
+                    auxAdy=(NodoA)auxAdy.getNext();
+                }
+            }
+            
+        }else{
+            report+="Estructura vacia\n";
+        }
+        
+        return report;
+    }
+    
+    public static void create_graph(Grafo grafo){
+        System.setProperty("org.graphstream.ui","swing");
+        Graph graph = new SingleGraph("tutorial 1");
+
+            graph.setAttribute("ui.stylesheet", styleSheet);
+            graph.setAutoCreate(false);
+            graph.setStrict(false);
+            
+            NodoV aux =(NodoV) grafo.vertex.getpFirst();
+            while(aux!=null){
+                Node n = graph.addNode((String)aux.getData());
+                n.setAttribute("ui.label", n.getId());
+                aux=(NodoV)aux.getNext();
+            }
+            aux = (NodoV) grafo.vertex.getpFirst();
+            while(aux!=null){
+                ListA ady = aux.getAdy();
+                NodoA in =(NodoA) ady.getpFirst();
+                while(in!=null){
+                    NodoV dest =(NodoV) in.getData();
+                    String id= (String) aux.getData() +(String) dest.getData();
+                    Edge e = graph.addEdge(id, (String)aux.getData(), (String) dest.getData(), true) ;
+                    e.setAttribute("length",Float.toString(in.getWeight()));
+                    e.setAttribute("ui.label", e.getNumber("length"));
+                    in=(NodoA)in.getNext();
+                }
+                aux=(NodoV)aux.getNext();
+            }
+           
+            graph.display();
+    }
+    
+    protected static String styleSheet =
+            "node {" +
+            "size: 30px, 30px;\n" +
+            "shape: circle;\n" +
+            "fill-color: white;\n" +
+            "stroke-mode: plain;\n" +
+            "stroke-color: #99CCFF;\n"+
+            "stroke-width: 3;\n"+
+            "text-size: 16;\n"+
+            "text-alignment: center;}" +
+            "node: clicked{"+
+            "fill-color: #99CCFF;\n" +
+            "stroke-mode: plain;\n" +
+            "stroke-color: #99CCFF;\n"+
+            "stroke-width: 5;}"+
+            "edge {" +
+            "fill-color: #333333;\n"+
+            "size: 5;\n"+
+            "shape: angle;\n"+
+            "arrow-size: 16,10;\n"+
+            "text-background-mode: rounded-box;\n"+
+            "text-background-color: #99CCFF;\n"+
+            "text-color: black;\n"+
+            "text-size: 12;\n"+
+            "text-style: bold;\n"+
+            "text-padding: 8;\n"+
+            "text-alignment: under;}";
     
     
     public static void write_txt(File file, Grafo grafo){
