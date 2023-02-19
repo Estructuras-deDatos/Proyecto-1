@@ -8,7 +8,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import proyecto.pkg1.grafo.Grafo;
-import proyecto.pkg1.grafo.NodoV;
 import proyecto.pkg1.grafo.functions;
 
 /**
@@ -18,12 +17,16 @@ import proyecto.pkg1.grafo.functions;
 public class windowCargar extends javax.swing.JFrame {
 
     public static File file;
+    public static boolean loaded;
     
     /**
      * Creates new form windowCargar
      */
     public windowCargar() {
+        setUndecorated(true);
         initComponents();
+        setSize(700, 600);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -36,15 +39,15 @@ public class windowCargar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        regresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         filePath = new javax.swing.JTextField();
         adjuntar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         cargar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -52,98 +55,116 @@ public class windowCargar extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Kannada Sangam MN", 2, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Administrar Archivo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
-
-        jSeparator1.setForeground(new java.awt.Color(153, 204, 255));
-        jSeparator1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 570, 40));
-
-        regresar.setBackground(new java.awt.Color(153, 204, 255));
-        regresar.setForeground(new java.awt.Color(0, 0, 0));
-        regresar.setText("Regresar");
-        regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regresarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Guardar Archivo");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 370, -1));
+        jLabel2.setText("Guardar Archivo:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 370, -1));
 
         filePath.setEditable(false);
-        filePath.setBackground(new java.awt.Color(255, 255, 255));
+        filePath.setBackground(new java.awt.Color(204, 204, 204));
         filePath.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(filePath, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 270, -1));
+        filePath.setOpaque(true);
+        jPanel1.add(filePath, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 290, -1));
 
         adjuntar.setBackground(new java.awt.Color(153, 204, 255));
         adjuntar.setForeground(new java.awt.Color(0, 0, 0));
         adjuntar.setText("Adjuntar");
+        adjuntar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        adjuntar.setBorderPainted(false);
+        adjuntar.setOpaque(true);
         adjuntar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adjuntarActionPerformed(evt);
             }
         });
-        jPanel1.add(adjuntar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 90, -1));
+        jPanel1.add(adjuntar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 140, 20));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Cargar Archivo ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 370, -1));
+        jLabel3.setText("Cargar Archivo: ");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 370, -1));
 
         cargar.setBackground(new java.awt.Color(153, 204, 255));
         cargar.setForeground(new java.awt.Color(0, 0, 0));
         cargar.setText("Cargar");
+        cargar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cargar.setBorderPainted(false);
+        cargar.setOpaque(true);
         cargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cargarActionPerformed(evt);
             }
         });
-        jPanel1.add(cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        jPanel1.add(cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 140, 20));
 
         guardar.setBackground(new java.awt.Color(153, 204, 255));
         guardar.setForeground(new java.awt.Color(0, 0, 0));
         guardar.setText("Guardar");
+        guardar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        guardar.setBorderPainted(false);
+        guardar.setOpaque(true);
         guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 140, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 400));
+        jSeparator1.setForeground(new java.awt.Color(153, 204, 255));
+        jSeparator1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 710, 40));
+
+        jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Gestión de Archivo");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 220, -1));
+
+        backButton.setBackground(new java.awt.Color(153, 204, 255));
+        backButton.setForeground(new java.awt.Color(0, 0, 0));
+        backButton.setText("<  Atrás");
+        backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        backButton.setOpaque(true);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_regresarActionPerformed
 
     private void adjuntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adjuntarActionPerformed
         JFileChooser chooser = new JFileChooser();
         if(chooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
             file=chooser.getSelectedFile();
             filePath.setText(file.getAbsolutePath());
+            loaded = true;
         }
         else{
-            JOptionPane.showMessageDialog(null, "No file selected");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo!");
+            loaded = false;
         }
     }//GEN-LAST:event_adjuntarActionPerformed
 
     private void cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarActionPerformed
         windowMain.grafo = new Grafo();
         functions.read_txt(file, windowMain.grafo);
+        
     }//GEN-LAST:event_cargarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         functions.write_txt(file, windowMain.grafo);
     }//GEN-LAST:event_guardarActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+
+        windowMain main = new windowMain();
+        main.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,6 +203,7 @@ public class windowCargar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adjuntar;
+    private javax.swing.JButton backButton;
     private javax.swing.JButton cargar;
     private javax.swing.JTextField filePath;
     private javax.swing.JButton guardar;
@@ -190,6 +212,5 @@ public class windowCargar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton regresar;
     // End of variables declaration//GEN-END:variables
 }
