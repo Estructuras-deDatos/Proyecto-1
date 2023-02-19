@@ -4,6 +4,7 @@
  */
 package proyecto.pkg1;
 
+import proyecto.pkg1.grafo.functions;
 import proyecto.pkg1.interfaces.windowMain;
 
 /**
@@ -20,6 +21,8 @@ public class Proyecto1 {
       
       main.setVisible(true);
       main.setLocationRelativeTo(null);
+      
+        
     }
     
 }    

@@ -28,6 +28,10 @@ public class NodoV extends Nodo {
         this.stock.Insert(nameP, stock);
     }
     
+    public String print_stock(){
+       return this.stock.Print();
+    }
+    
     public boolean HasArcs(){
         return getAdy()!=null;
     }
