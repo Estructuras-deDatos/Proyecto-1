@@ -39,7 +39,7 @@ public class ListA extends List {
             newNodo.setBefore(pLast);
             pLast=newNodo;
         }
-        
+        size++;
     }
 
     @Override

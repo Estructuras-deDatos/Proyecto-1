@@ -19,6 +19,40 @@ import org.graphstream.graph.implementations.*;
  */
 public class functions {
     
+    public static Object[] getWay(NodoV origen, NodoV destino){
+        float distance;
+        String route;
+        Object[] result = new Object[2];
+        Float distMin =Float.POSITIVE_INFINITY;
+        String final_route="";
+        ListA list = origen.getAdy();
+        NodoA aux = (NodoA)list.getpFirst();
+        if(origen==destino){
+            float res = 0;
+            result[0]= res;
+            result[1]= (String) origen.getData();
+            return result;
+        }else{
+            int count =0;
+            while(count < list.getSize()){
+                distance=aux.getWeight();
+                route=(String)origen.getData()+" - ";
+                result= getWay((NodoV)aux.getData(), destino);
+                distance+= (Float) result[0];
+                route+=(String) result[1];
+                if(distance<= distMin){
+                    distMin=distance;
+                    final_route= route;
+                }
+                aux=(NodoA)aux.getNext();
+                count++;
+            }
+        }
+        result[0] =distMin;
+        result[1]=final_route;
+        return result;
+    }
+    
     public static NodoV find_beginning(Grafo grafo){
         ListV vertex = grafo.getList();
         NodoV aux =(NodoV) vertex.getpFirst();

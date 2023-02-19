@@ -5,6 +5,7 @@
 package proyecto.pkg1.interfaces;
 
 import proyecto.pkg1.grafo.Grafo;
+import proyecto.pkg1.grafo.NodoV;
 import proyecto.pkg1.grafo.functions;
 import proyecto.pkg1.interfaces.stock.windowStock;
 
@@ -152,6 +153,11 @@ public class windowMain extends javax.swing.JFrame {
         windowGrafo windowGrafo1 = new windowGrafo();
         windowGrafo1.show();
         functions.create_graph(grafo);
+        NodoV first = (NodoV) grafo.getList().Search("B");
+        NodoV last = (NodoV) grafo.getList().Search("E");
+        Object[] result =functions.getWay(first, last);
+        System.out.println(result[0]+"\n"+result[1]);
+      
     }//GEN-LAST:event_verGrafoButtonActionPerformed
 
     private void disponibilidadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disponibilidadButtonActionPerformed
