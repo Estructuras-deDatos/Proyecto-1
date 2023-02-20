@@ -19,6 +19,55 @@ import org.graphstream.graph.implementations.*;
  */
 public class functions {
     
+    /* esta es la funcion a implementar de realizar pedido, recibe el grafo general, 
+    el Nodo del almacen seleccionado para el pedido, y el nombre (string) del producto que se requiere
+    
+    Retorna un array que tienen
+    [0] - la distancia que hay entre el almacen mas cercano con el producto
+    [1] - la ruta que debe tomar para llegar al almacen
+    [2] - el NodoV del almacen al cual se le pediria el producto
+    */
+    
+    public static Object[] getClosestWarehouse(Grafo grafo, NodoV selW, String prod){
+        Object[] result = new Object[3];
+        ListV warehouses = getWarehouses(grafo, prod);
+        NodoV aux =(NodoV) warehouses.getpFirst();
+        NodoV closestWarehouse=null;
+        float distance;
+        String route;
+        Float distMin =Float.POSITIVE_INFINITY;
+        String final_route="";
+        while(aux!=null){
+            Object[] temp = getWay(selW, (NodoV) aux.getData());
+            distance = (float) temp[0];
+            route=(String) temp[1];
+            if(distance<distMin){
+                distMin=distance;
+                final_route=route;
+                closestWarehouse = (NodoV) aux.getData();
+            }
+            aux=(NodoV)aux.getNext();
+        }
+        result[0] = distMin;
+        result[1]=final_route;
+        result[2]=closestWarehouse;
+        return result;
+    }
+    
+    public static ListV getWarehouses(Grafo grafo, String prod){
+        ListV warehouses = grafo.getList();
+        ListV result = new ListV();
+        NodoV aux = (NodoV)warehouses.getpFirst();
+        while(aux!=null){
+            NodoP found = aux.getStock().Search(prod);
+            if(found!=null){
+                result.Insert(aux);
+            }
+            aux=(NodoV)aux.getNext();
+        }
+        return result;
+    }
+    
     public static Object[] getWay(NodoV origen, NodoV destino){
         float distance;
         String route;
@@ -74,6 +123,8 @@ public class functions {
        return visited.Search(aux)!=null;
     }
     
+    
+    
     public static String BFS_report(Grafo grafo){
         String report = "Recorrido en Amplitud de la Disponibilidad de los Almacenes:\n";
         if(!grafo.IsEmpty()){
@@ -106,37 +157,6 @@ public class functions {
         return report;
     }
     
-    public static String DFS_report(Grafo grafo){
-        String report = "Recorrido en Profundidad de la Disponibilidad de los Almacenes:\n";
-        if(!grafo.IsEmpty()){
-            Stack stack = new Stack();
-            ListV visited = new ListV();
-            NodoV beg = find_beginning(grafo);
-            stack.push(beg);
-            NodoV aux;
-            while(!stack.isEmpty()){
-                aux=stack.pop();
-                if(!has_been_visited(aux.getData(), visited)){
-                    report+= "Almacen "+(String)aux.getData()+": \n";
-                    report+=aux.print_stock();
-                    visited.Insert(aux.getData());
-                }
-                NodoA auxAdy = (NodoA) aux.getAdy().getpFirst();
-                while(auxAdy!=null){
-                    NodoV data =(NodoV) auxAdy.getData();
-                    if(!has_been_visited(data.getData(), visited)){
-                        stack.push((NodoV)auxAdy.getData());
-                    }
-                    auxAdy=(NodoA)auxAdy.getNext();
-                }
-            }
-            
-        }else{
-            report+="Estructura vacia\n";
-        }
-        
-        return report;
-    }
     
     public static void create_graph(Grafo grafo){
         System.setProperty("org.graphstream.ui","swing");

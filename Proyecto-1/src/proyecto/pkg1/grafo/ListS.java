@@ -25,7 +25,7 @@ public class ListS {
     public NodoP Search(Object data){
         NodoP aux;
        for (aux=(NodoP) pFirst; aux!=null;aux=(NodoP) aux.getNext()){
-           if(data==aux.getNameP()){
+           if(data.equals(aux.getNameP())){
                return aux;
            }   
        }
@@ -43,6 +43,7 @@ public class ListS {
             newNodo.setBefore(pLast);
             pLast=newNodo;
         }
+        size++;
     }
     
     
@@ -79,6 +80,7 @@ public class ListS {
         
         
         }
+        size--;
     
     }
     
