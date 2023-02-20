@@ -65,6 +65,7 @@ public class ListA extends List {
                 }
             }
         }
+        size--;
     }
 
     @Override

@@ -38,6 +38,7 @@ public class ListV extends List{
             newNodo.setBefore(pLast);
             pLast=newNodo;
         }
+        size++;
     }
 
     @Override
@@ -63,6 +64,7 @@ public class ListV extends List{
                 }
             }
         }
+        size--;
     }
 
     @Override

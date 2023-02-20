@@ -141,7 +141,7 @@ public class windowCargar extends javax.swing.JFrame {
         if(chooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
             file=chooser.getSelectedFile();
             filePath.setText(file.getAbsolutePath());
-            
+            loaded=true;
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo!");
