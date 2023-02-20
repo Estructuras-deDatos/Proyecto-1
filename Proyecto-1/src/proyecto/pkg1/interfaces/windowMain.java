@@ -174,10 +174,7 @@ public class windowMain extends javax.swing.JFrame {
         windowShowGraph windowGrafo1 = new windowShowGraph();
         windowGrafo1.show();
         this.setVisible(false);
-        Object[] result = functions.getClosestWarehouse(grafo, grafo.getList().Search("C"), "Pantalla");
-        for(int i = 0; i<3;i++){
-            System.out.println(result[i]);
-        }
+        
     }//GEN-LAST:event_verGrafoButtonActionPerformed
 
     private void disponibilidadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disponibilidadButtonActionPerformed
