@@ -9,8 +9,7 @@ package proyectohb;
  * @author Windows 10
  */
 public class ListS {
-    
-    /*Clase de la lista del Almacen*/
+     /*Clase de la lista del Almacen*/
     private NodoP pFirst;
     private NodoP pLast;
     private int size;

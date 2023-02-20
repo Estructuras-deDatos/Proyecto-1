@@ -15,7 +15,7 @@ package proyectohb;
 public class NodoP{
     
     private int stock;
-    private String nameP;
+    private String nameP; 
     private NodoP before;
     private NodoP next;
     
