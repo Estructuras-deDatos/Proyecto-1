@@ -38,7 +38,7 @@ public class functions {
         Float distMin =Float.POSITIVE_INFINITY;
         String final_route="";
         while(aux!=null){
-            Object[] temp = getWay(selW, (NodoV) aux.getData());
+            Object[] temp = getWay((NodoV) aux.getData(), selW,(NodoV) aux.getData());
             distance = (float) temp[0];
             route=(String) temp[1];
             if(distance<distMin){
@@ -68,7 +68,7 @@ public class functions {
         return result;
     }
     
-    public static Object[] getWay(NodoV origen, NodoV destino){
+    public static Object[] getWay(NodoV origen, NodoV destino, NodoV inicio){
         float distance;
         String route;
         Object[] result = new Object[2];
@@ -81,12 +81,12 @@ public class functions {
             result[0]= res;
             result[1]= (String) origen.getData();
             return result;
-        }else{
+        }else if ((NodoV) aux.getData()!=inicio){
             int count =0;
             while(count < list.getSize()){
                 distance=aux.getWeight();
                 route=(String)origen.getData()+" - ";
-                result= getWay((NodoV)aux.getData(), destino);
+                result= getWay((NodoV)aux.getData(), destino, inicio);
                 distance+= (Float) result[0];
                 route+=(String) result[1];
                 if(distance<= distMin){
