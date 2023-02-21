@@ -17,6 +17,8 @@ public class windowWarehouse extends javax.swing.JFrame {
         initComponents();
         setSize(700, 600);
         setLocationRelativeTo(null); 
+        fromTextField.show(false);
+        toTextField.show(false);
     }
 
     /**
@@ -39,12 +41,14 @@ public class windowWarehouse extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         secondwhJComboBox = new javax.swing.JComboBox<>();
         firstwhJComboBox = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
+        toTextField = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         warehouseNameTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         secondwhDistanceTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        fromTextField = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -86,17 +90,12 @@ public class windowWarehouse extends javax.swing.JFrame {
 
         firstwhDistanceTextField.setBackground(new java.awt.Color(204, 204, 204));
         firstwhDistanceTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        firstwhDistanceTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                firstwhDistanceTextFieldActionPerformed(evt);
-            }
-        });
         firstwhDistanceTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 firstwhDistanceTextFieldKeyTyped(evt);
             }
         });
-        jPanel1.add(firstwhDistanceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 70, -1));
+        jPanel1.add(firstwhDistanceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 70, -1));
 
         addWarehouseButton.setBackground(new java.awt.Color(153, 204, 255));
         addWarehouseButton.setForeground(new java.awt.Color(0, 0, 0));
@@ -108,41 +107,39 @@ public class windowWarehouse extends javax.swing.JFrame {
                 addWarehouseButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(addWarehouseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 200, 30));
+        jPanel1.add(addWarehouseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, 200, 30));
 
         jLabel4.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Distancia:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, -1, -1));
 
         secondwhJComboBox.setBackground(new java.awt.Color(204, 204, 204));
         secondwhJComboBox.setForeground(new java.awt.Color(0, 0, 0));
         secondwhJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(windowMain.auxFunc.arrayWarehouseNames()));
-        jPanel1.add(secondwhJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 160, -1));
+        jPanel1.add(secondwhJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, 160, -1));
 
         firstwhJComboBox.setBackground(new java.awt.Color(204, 204, 204));
         firstwhJComboBox.setForeground(new java.awt.Color(0, 0, 0));
         firstwhJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(windowMain.auxFunc.arrayWarehouseNames()));
-        jPanel1.add(firstwhJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 160, -1));
+        jPanel1.add(firstwhJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 160, -1));
 
-        jLabel5.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Nombre:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
+        toTextField.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
+        toTextField.setForeground(new java.awt.Color(0, 0, 0));
+        toTextField.setText("Hasta nuevo almacen, desde:");
+        jPanel1.add(toTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("km.");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, -1, -1));
 
         warehouseNameTextField.setBackground(new java.awt.Color(204, 204, 204));
         warehouseNameTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        warehouseNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                warehouseNameTextFieldActionPerformed(evt);
-            }
-        });
         warehouseNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                warehouseNameTextFieldKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 warehouseNameTextFieldKeyTyped(evt);
             }
@@ -152,26 +149,31 @@ public class windowWarehouse extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Distancia:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
 
         secondwhDistanceTextField.setBackground(new java.awt.Color(204, 204, 204));
         secondwhDistanceTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        secondwhDistanceTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                secondwhDistanceTextFieldActionPerformed(evt);
-            }
-        });
         secondwhDistanceTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 secondwhDistanceTextFieldKeyTyped(evt);
             }
         });
-        jPanel1.add(secondwhDistanceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 70, -1));
+        jPanel1.add(secondwhDistanceTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, 70, -1));
 
         jLabel9.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("km.");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Nombre:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
+
+        fromTextField.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 13)); // NOI18N
+        fromTextField.setForeground(new java.awt.Color(0, 0, 0));
+        fromTextField.setText("Desde nuevo almacen, hasta:");
+        jPanel1.add(fromTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
 
@@ -195,36 +197,30 @@ public class windowWarehouse extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Importante: Debes ingresar dos almacenes diferentes.");
             } else if(windowMain.grafo.VertexExists(warehouseName)){
                 JOptionPane.showMessageDialog(this, "Importante: Este almacen ya esta registrado!");
-            }  //else if (windowMain.grafo.ArcExists()){} 
+            } 
             else {
                windowMain.grafo.NewVertex(warehouseName);
                windowMain.grafo.NewArc(warehouseName, firstwhJComboBox.getSelectedItem(), Float.valueOf(firstwhDistanceTextField.getText()));
-               windowMain.grafo.NewArc(warehouseName, secondwhJComboBox.getSelectedItem(), Float.valueOf(secondwhDistanceTextField.getText()));
+               windowMain.grafo.NewArc(secondwhJComboBox.getSelectedItem(), warehouseName,Float.valueOf(secondwhDistanceTextField.getText()));
                JOptionPane.showMessageDialog(this, "Almacen registrado con éxito!");
             }
-        }
-           
+        }  
     }//GEN-LAST:event_addWarehouseButtonActionPerformed
-
-    private void firstwhDistanceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstwhDistanceTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstwhDistanceTextFieldActionPerformed
-
-    private void warehouseNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_warehouseNameTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_warehouseNameTextFieldActionPerformed
 
     private void warehouseNameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_warehouseNameTextFieldKeyTyped
         windowMain.auxFunc.verifyString(evt, warehouseNameTextField, 10);
     }//GEN-LAST:event_warehouseNameTextFieldKeyTyped
 
-    private void secondwhDistanceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondwhDistanceTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_secondwhDistanceTextFieldActionPerformed
-
     private void secondwhDistanceTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_secondwhDistanceTextFieldKeyTyped
          windowMain.auxFunc.verifyInt(evt, secondwhDistanceTextField, 3);
     }//GEN-LAST:event_secondwhDistanceTextFieldKeyTyped
+
+    private void warehouseNameTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_warehouseNameTextFieldKeyReleased
+        fromTextField.setText("Desde " + warehouseNameTextField.getText() + ", hasta: ");
+        fromTextField.show();
+        toTextField.setText("Hasta " + warehouseNameTextField.getText() + ", desde: ");
+        toTextField.show();
+    }//GEN-LAST:event_warehouseNameTextFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -267,10 +263,11 @@ public class windowWarehouse extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JTextField firstwhDistanceTextField;
     private javax.swing.JComboBox<String> firstwhJComboBox;
+    private javax.swing.JLabel fromTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -279,8 +276,7 @@ public class windowWarehouse extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField secondwhDistanceTextField;
     private javax.swing.JComboBox<String> secondwhJComboBox;
-    private javax.swing.JComboBox<String> warehouseJComboBox;
-    private javax.swing.JComboBox<String> warehouseJComboBox1;
+    private javax.swing.JLabel toTextField;
     private javax.swing.JTextField warehouseNameTextField;
     // End of variables declaration//GEN-END:variables
 }

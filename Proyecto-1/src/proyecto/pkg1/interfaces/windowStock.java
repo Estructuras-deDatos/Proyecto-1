@@ -125,11 +125,6 @@ public class windowStock extends javax.swing.JFrame {
 
         qtyTextField.setBackground(new java.awt.Color(204, 204, 204));
         qtyTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        qtyTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                qtyTextFieldActionPerformed(evt);
-            }
-        });
         qtyTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 qtyTextFieldKeyTyped(evt);
@@ -139,11 +134,6 @@ public class windowStock extends javax.swing.JFrame {
 
         productTextField.setBackground(new java.awt.Color(204, 204, 204));
         productTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        productTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productTextFieldActionPerformed(evt);
-            }
-        });
         productTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 productTextFieldKeyTyped(evt);
@@ -189,17 +179,9 @@ public class windowStock extends javax.swing.JFrame {
         windowMain.auxFunc.setDefault(warehouseJComboBox, jLabel1, availableProductsTextArea, "Productos Disponibles en Almacen ");
     }//GEN-LAST:event_warehouseJComboBoxActionPerformed
 
-    private void qtyTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_qtyTextFieldActionPerformed
-
     private void qtyTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyTextFieldKeyTyped
         windowMain.auxFunc.verifyInt(evt, qtyTextField, 9);
     }//GEN-LAST:event_qtyTextFieldKeyTyped
-
-    private void productTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_productTextFieldActionPerformed
 
     private void productTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_productTextFieldKeyTyped
         windowMain.auxFunc.verifyString(evt, productTextField, 10);

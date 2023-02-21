@@ -108,11 +108,6 @@ public class windowOrders2 extends javax.swing.JFrame {
 
         productTextField.setBackground(new java.awt.Color(204, 204, 204));
         productTextField.setForeground(new java.awt.Color(0, 0, 0));
-        productTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productTextFieldActionPerformed(evt);
-            }
-        });
         productTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 productTextFieldKeyTyped(evt);
@@ -159,11 +154,6 @@ public class windowOrders2 extends javax.swing.JFrame {
         confirmOrderButton.setText("Realizar Pedido");
         confirmOrderButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         confirmOrderButton.setOpaque(true);
-        confirmOrderButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmOrderButtonActionPerformed(evt);
-            }
-        });
         jPanel1.add(confirmOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 180, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
@@ -172,7 +162,6 @@ public class windowOrders2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-
         windowOrders1 pedidos = new windowOrders1();
         pedidos.show();
         this.setVisible(false);
@@ -181,21 +170,9 @@ public class windowOrders2 extends javax.swing.JFrame {
     private void addtoOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtoOrderButtonActionPerformed
         String numeropedido = qtyTextField.getText();
         String nombreproducto = productTextField.getText();
-        
         windowMain.auxFunc.enabledButtons(qtyTextField, productTextField, addtoOrderButton);
-        
-        
-        
         //listaProductosaPedirTextArea.setText("* " + nombreproducto + ": " + numeropedido + " unidades.");
     }//GEN-LAST:event_addtoOrderButtonActionPerformed
-
-    private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmOrderButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_confirmOrderButtonActionPerformed
-
-    private void productTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productTextFieldActionPerformed
-
-    }//GEN-LAST:event_productTextFieldActionPerformed
 
     private void productTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_productTextFieldKeyTyped
         windowMain.auxFunc.verifyString(evt, productTextField, 10);

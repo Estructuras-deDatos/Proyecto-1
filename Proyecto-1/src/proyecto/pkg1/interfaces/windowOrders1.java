@@ -112,11 +112,6 @@ public class windowOrders1 extends javax.swing.JFrame {
 
         dniTextField.setBackground(new java.awt.Color(204, 204, 204));
         dniTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        dniTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dniTextFieldActionPerformed(evt);
-            }
-        });
         dniTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 dniTextFieldKeyTyped(evt);
@@ -161,10 +156,6 @@ public class windowOrders1 extends javax.swing.JFrame {
     private void nameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTextFieldKeyTyped
         windowMain.auxFunc.verifyString(evt, nameTextField, 15);
     }//GEN-LAST:event_nameTextFieldKeyTyped
-
-    private void dniTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dniTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dniTextFieldActionPerformed
 
     private void dniTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dniTextFieldKeyTyped
         windowMain.auxFunc.verifyInt(evt, dniTextField, 9);

@@ -86,6 +86,10 @@ public class auxFunctions {
        return null;
     }
     
+    public void textFieldDidChange(JTextField txtfield, JLabel label) {
+        label.setText(txtfield.getText());
+       }
+    
     public void setDefault(JComboBox comboBox, JLabel label, JTextArea txtArea, String setString){
         String string = String.valueOf(comboBox.getSelectedItem());
         label.setText("Productos Disponibles en Almacen " + string + ":");
