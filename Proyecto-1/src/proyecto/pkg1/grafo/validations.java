@@ -4,8 +4,6 @@
  */
 package proyecto.pkg1.grafo;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author andre

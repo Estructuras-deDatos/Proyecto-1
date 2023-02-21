@@ -11,6 +11,9 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.swing_viewer.SwingViewer;
+import org.graphstream.ui.swing_viewer.ViewPanel;
+import org.graphstream.ui.view.Viewer;
 
 
 /**
@@ -126,7 +129,7 @@ public class functions {
     
     
     public static String BFS_report(Grafo grafo){
-        String report = "Recorrido en Amplitud de la Disponibilidad de los Almacenes:\n";
+        String report = "Recorrido en Anchura de la Disponibilidad de los Almacenes:\n";
         if(!grafo.IsEmpty()){
             Queue queue = new Queue();
             ListV visited = new ListV();
@@ -158,10 +161,9 @@ public class functions {
     }
     
     
-    public static void create_graph(Grafo grafo){
+    public static ViewPanel create_graph(Grafo grafo){
         System.setProperty("org.graphstream.ui","swing");
         Graph graph = new SingleGraph("tutorial 1");
-
             graph.setAttribute("ui.stylesheet", styleSheet);
             graph.setAutoCreate(false);
             graph.setStrict(false);
@@ -170,6 +172,7 @@ public class functions {
             while(aux!=null){
                 Node n = graph.addNode((String)aux.getData());
                 n.setAttribute("ui.label", n.getId());
+                n.setAttribute("layout.weight", 10);
                 aux=(NodoV)aux.getNext();
             }
             aux = (NodoV) grafo.vertex.getpFirst();
@@ -180,19 +183,21 @@ public class functions {
                     NodoV dest =(NodoV) in.getData();
                     String id= (String) aux.getData() +(String) dest.getData();
                     Edge e = graph.addEdge(id, (String)aux.getData(), (String) dest.getData(), true) ;
-                    e.setAttribute("length",Float.toString(in.getWeight()));
-                    e.setAttribute("ui.label", e.getNumber("length"));
+                    e.setAttribute("ui.label", Float.toString(in.getWeight()));
                     in=(NodoA)in.getNext();
                 }
                 aux=(NodoV)aux.getNext();
             }
-           
-            graph.display();
+        SwingViewer viewer = new SwingViewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        viewer.enableAutoLayout();
+        ViewPanel view = (ViewPanel) viewer.addDefaultView(false);
+        return view;
+        
     }
     
     protected static String styleSheet =
             "node {" +
-            "size: 30px, 30px;\n" +
+            "size: 50px, 50px;\n" +
             "shape: circle;\n" +
             "fill-color: white;\n" +
             "stroke-mode: plain;\n" +
@@ -207,16 +212,16 @@ public class functions {
             "stroke-width: 5;}"+
             "edge {" +
             "fill-color: #333333;\n"+
-            "size: 5;\n"+
-            "shape: angle;\n"+
+            "size: 3;\n"+
+            "shape: line;\n"+
             "arrow-size: 16,10;\n"+
             "text-background-mode: rounded-box;\n"+
             "text-background-color: #99CCFF;\n"+
             "text-color: black;\n"+
             "text-size: 12;\n"+
             "text-style: bold;\n"+
-            "text-padding: 8;\n"+
-            "text-alignment: under;}";
+            "text-padding: 5;\n"+
+            "text-alignment: above;}";
     
     
     public static void write_txt(File file, Grafo grafo){

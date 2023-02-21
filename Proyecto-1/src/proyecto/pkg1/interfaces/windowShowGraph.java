@@ -1,7 +1,5 @@
 package proyecto.pkg1.interfaces;
 
-import javax.swing.JRootPane;
-
 /**
  *
  * @author beatrizcardozo
@@ -16,6 +14,7 @@ public class windowShowGraph extends javax.swing.JFrame {
         initComponents();
         setSize(700, 600);
         setLocationRelativeTo(null); 
+        graph.add(windowMain.graph);
     }
 
     /**
@@ -27,18 +26,19 @@ public class windowShowGraph extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        show = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        graph = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Grafo");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        show.setBackground(new java.awt.Color(255, 255, 255));
+        show.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backButton.setBackground(new java.awt.Color(153, 204, 255));
         backButton.setForeground(new java.awt.Color(0, 0, 0));
@@ -50,18 +50,21 @@ public class windowShowGraph extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 30));
+        show.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 30));
 
         jSeparator1.setForeground(new java.awt.Color(153, 204, 255));
         jSeparator1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 710, 40));
+        show.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 710, 40));
 
         jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Visualizar Grafo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 190, -1));
+        show.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 190, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
+        graph.setLayout(new java.awt.GridLayout());
+        show.add(graph, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 640, 470));
+
+        getContentPane().add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -110,8 +113,9 @@ public class windowShowGraph extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JPanel graph;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    public static javax.swing.JPanel show;
     // End of variables declaration//GEN-END:variables
 }
