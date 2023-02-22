@@ -1,5 +1,6 @@
 package proyecto.pkg1.interfaces;
 
+import java.awt.Component;
 import javax.swing.JRootPane;
 
 /**
@@ -16,6 +17,7 @@ public class windowShowGraph extends javax.swing.JFrame {
         initComponents();
         setSize(700, 600);
         setLocationRelativeTo(null); 
+        show.add(windowMain.graph);
     }
 
     /**
@@ -31,6 +33,7 @@ public class windowShowGraph extends javax.swing.JFrame {
         backButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        show = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Grafo");
@@ -60,6 +63,9 @@ public class windowShowGraph extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Visualizar Grafo");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 190, -1));
+
+        show.setLayout(new java.awt.GridLayout());
+        jPanel1.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 620, 460));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
 
@@ -113,5 +119,6 @@ public class windowShowGraph extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel show;
     // End of variables declaration//GEN-END:variables
 }

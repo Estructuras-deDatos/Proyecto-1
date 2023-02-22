@@ -105,6 +105,40 @@ public class functions {
         return result;
     }
     
+    //Recorrido en profundidad
+    public void RecorrerProfundidad(Grafo g, int v, boolean[] visitados){
+       
+        visitados[v] = true;
+        boolean encontrado = false;
+        NodoV aux = (NodoV)g.getList().getpFirst();
+        while(!encontrado && aux != null){
+            if((int)aux.getData() == v){
+                encontrado = true;
+                
+                System.out.println(aux.getStock().PrintProducts());
+                
+            }
+            
+            aux = (NodoV)aux.getNext();
+        }
+        
+          NodoV Aux2 = (NodoV)g.getList().getpFirst();
+          
+        try{
+        for (int i = 0;i<aux.getAdy().getSize();i++){
+              
+            if((v!=i) && (!visitados[i]) && (g.ArcExists(aux,Aux2 )) ){
+                RecorrerProfundidad(g, i, visitados);
+            }
+            Aux2 = (NodoV)Aux2.getNext();  
+        }
+        }
+        catch(Exception e){
+        
+        }
+    }  
+        
+    
     public static NodoV find_beginning(Grafo grafo){
         ListV vertex = grafo.getList();
         NodoV aux =(NodoV) vertex.getpFirst();

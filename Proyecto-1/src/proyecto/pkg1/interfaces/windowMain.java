@@ -1,5 +1,6 @@
 package proyecto.pkg1.interfaces;
 import javax.swing.JButton;
+import org.graphstream.ui.swing_viewer.ViewPanel;
 import proyecto.pkg1.grafo.Grafo;
 import proyecto.pkg1.grafo.functions;
 
@@ -12,6 +13,7 @@ public class windowMain extends javax.swing.JFrame {
     public static Grafo grafo;
     static public auxFunctions auxFunc;
     static public functions func;
+    static public ViewPanel graph;
     
     /**
      * Creates new form windowAdminHome
@@ -172,9 +174,11 @@ public class windowMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void verGrafoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGrafoButtonActionPerformed
+        graph= functions.create_graph(grafo);
         windowShowGraph windowGrafo1 = new windowShowGraph();
         windowGrafo1.show();
         this.setVisible(false);
+        
         
     }//GEN-LAST:event_verGrafoButtonActionPerformed
 
