@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import proyecto.pkg1.abstracts.Nodo;
 import proyecto.pkg1.grafo.NodoP;
+import proyecto.pkg1.grafo.NodoV;
 
 
 /**
@@ -75,9 +76,13 @@ public class auxFunctions {
 
     }
     
+    public String UpperFirstLetter(String str){
+        String res = str.substring(0, 1).toUpperCase() + str.substring(1); 
+        return res;
+    }
     
-    public NodoP searchProduct(Object product){
-        NodoP aux = windowStock.NodoWh.getStock().getpFirst();
+    public NodoP searchProduct(NodoV nodo, Object product){
+        NodoP aux = (NodoP)nodo.getStock().getpFirst();
         for (int i = 0; aux!=null;aux= (NodoP)aux.getNext()){
            if(product.equals(aux.getNameP().toLowerCase())){
                return aux;

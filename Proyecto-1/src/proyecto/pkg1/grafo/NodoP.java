@@ -23,7 +23,11 @@ public class NodoP {
         this.next = null;
     }
     
-    
+    public String PrintProduct(){
+        String cadena = "";
+        cadena += "Nombre del producto: " + nameP + "\n" + "Stock del producto: " + Integer.toString(stock);
+        return cadena;
+    }
     public boolean enoughStock(int numPedido){
         if (this.getStock() > 0){
             if(this.getStock() < numPedido){

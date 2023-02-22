@@ -166,9 +166,9 @@ public class windowStock extends javax.swing.JFrame {
         if(windowMain.auxFunc.enabledButtons(qtyTextField, productTextField, addProductButton)){
             String product = productTextField.getText().toLowerCase();
             int qty = Integer.parseInt(qtyTextField.getText());
-            if(windowMain.auxFunc.searchProduct(product) != null){
+            if(windowMain.auxFunc.searchProduct(NodoWh, product) != null){
                 JOptionPane.showMessageDialog(this, "Producto en el inventario: se le ha sumado al stock!");
-                windowMain.auxFunc.searchProduct(product).addStock(qty);
+                windowMain.auxFunc.searchProduct(NodoWh, product).addStock(qty);
             } else {
                 NodoWh.newStockP(product, qty); }
             availableProductsTextArea.setText(NodoWh.getStock().Print());

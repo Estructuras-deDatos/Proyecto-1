@@ -2,6 +2,7 @@ package proyecto.pkg1.interfaces;
 
 import javax.swing.JOptionPane;
 import proyecto.pkg1.grafo.NodoV;
+import proyecto.pkg1.grafo.NodoP; 
 
 
 /**
@@ -168,10 +169,25 @@ public class windowOrders2 extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void addtoOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtoOrderButtonActionPerformed
-        String numeropedido = qtyTextField.getText();
-        String nombreproducto = productTextField.getText();
-        windowMain.auxFunc.enabledButtons(qtyTextField, productTextField, addtoOrderButton);
-        //listaProductosaPedirTextArea.setText("* " + nombreproducto + ": " + numeropedido + " unidades.");
+        String qtyorder = qtyTextField.getText().trim();
+        String productorder = productTextField.getText().toLowerCase().trim();
+       if(windowMain.auxFunc.enabledButtons(qtyTextField, productTextField, addtoOrderButton)){
+           NodoP product = windowMain.auxFunc.searchProduct(NodoWh, productorder);
+            if (product != null){
+                if(product.enoughStock(Integer.parseInt(qtyorder))){
+                    OrdersTextArea.append("* " + windowMain.auxFunc.UpperFirstLetter(productorder) + ": " + qtyorder + " unidades. \n");
+                    product.setStock(product.getStock() - Integer.parseInt(qtyorder));
+                    availableProductsTextArea.setText(NodoWh.getStock().Print());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Atención!: Producto inexistente.");
+                productTextField.setText("");
+                qtyTextField.setText("");
+            }
+       }
+        
     }//GEN-LAST:event_addtoOrderButtonActionPerformed
 
     private void productTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_productTextFieldKeyTyped

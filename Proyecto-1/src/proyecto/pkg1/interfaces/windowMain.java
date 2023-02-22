@@ -1,7 +1,5 @@
 package proyecto.pkg1.interfaces;
-import java.awt.Component;
 import javax.swing.JButton;
-import org.graphstream.ui.swing_viewer.ViewPanel;
 import proyecto.pkg1.grafo.Grafo;
 import proyecto.pkg1.grafo.functions;
 
@@ -14,7 +12,6 @@ public class windowMain extends javax.swing.JFrame {
     public static Grafo grafo;
     static public auxFunctions auxFunc;
     static public functions func;
-    static public ViewPanel graph;
     
     /**
      * Creates new form windowAdminHome
@@ -139,7 +136,7 @@ public class windowMain extends javax.swing.JFrame {
         gestionAlmacenButton.setFont(new java.awt.Font("Kannada Sangam MN", 1, 14)); // NOI18N
         gestionAlmacenButton.setForeground(new java.awt.Color(0, 0, 0));
         gestionAlmacenButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/pkg1/interfaces/images/storageIcon.png"))); // NOI18N
-        gestionAlmacenButton.setText("Gestión de Almacenes");
+        gestionAlmacenButton.setText("Gestión de Almacenes y Rutas");
         gestionAlmacenButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         gestionAlmacenButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         gestionAlmacenButton.setOpaque(true);
@@ -175,12 +172,9 @@ public class windowMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void verGrafoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGrafoButtonActionPerformed
-        graph= functions.create_graph(grafo);
-        
         windowShowGraph windowGrafo1 = new windowShowGraph();
         windowGrafo1.show();
         this.setVisible(false);
-       
         
     }//GEN-LAST:event_verGrafoButtonActionPerformed
 

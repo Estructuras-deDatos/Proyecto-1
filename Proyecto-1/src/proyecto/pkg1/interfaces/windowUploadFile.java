@@ -14,6 +14,7 @@ public class windowUploadFile extends javax.swing.JFrame {
 
     public static File file;
     public static boolean loaded;
+    boolean read;
     
     /**
      * Creates new form windowCargar
@@ -23,6 +24,7 @@ public class windowUploadFile extends javax.swing.JFrame {
         initComponents();
         setSize(700, 600);
         setLocationRelativeTo(null);
+        boolean read= false;
     }
 
     /**
@@ -145,21 +147,27 @@ public class windowUploadFile extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFileButtonActionPerformed
+        if (loaded){JOptionPane.showMessageDialog(this, "Advertencia: si carga otro archivo, se borrará su información previa.");}
         JFileChooser chooser = new JFileChooser();
         if(chooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
             file=chooser.getSelectedFile();
             filePath.setText(file.getAbsolutePath());
-            loaded=true;
+            read = true;
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo!");
-            loaded = false;
+            read = false;
         }
     }//GEN-LAST:event_selectFileButtonActionPerformed
 
     private void uploadFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadFileButtonActionPerformed
-        windowMain.grafo = new Grafo();
-        functions.read_txt(file, windowMain.grafo);    
+        if(read){
+           windowMain.grafo = new Grafo();
+            functions.read_txt(file, windowMain.grafo); 
+            loaded = true;
+       } else {
+           loaded = false;
+       }
     }//GEN-LAST:event_uploadFileButtonActionPerformed
 
     private void saveFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileButtonActionPerformed
