@@ -1,7 +1,6 @@
 package proyecto.pkg1.interfaces;
-
 import javax.swing.JOptionPane;
-import proyecto.pkg1.grafo.NodoV;
+import proyecto.pkg1.grafo.Grafo;
 
 /**
  *
@@ -34,6 +33,7 @@ public class windowWarehouse extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
+        Grafo grafo = new Grafo();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -75,8 +75,8 @@ public class windowWarehouse extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Gestión de Almacenes");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 260, -1));
+        jLabel1.setText("Gestión de Almacenes y Rutas");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 360, -1));
 
         backButton.setBackground(new java.awt.Color(153, 204, 255));
         backButton.setForeground(new java.awt.Color(0, 0, 0));

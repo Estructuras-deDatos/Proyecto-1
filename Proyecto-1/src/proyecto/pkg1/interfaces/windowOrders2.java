@@ -3,6 +3,7 @@ package proyecto.pkg1.interfaces;
 import javax.swing.JOptionPane;
 import proyecto.pkg1.grafo.NodoV;
 import proyecto.pkg1.grafo.NodoP; 
+import proyecto.pkg1.grafo.functions;
 
 
 /**
@@ -155,6 +156,11 @@ public class windowOrders2 extends javax.swing.JFrame {
         confirmOrderButton.setText("Realizar Pedido");
         confirmOrderButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         confirmOrderButton.setOpaque(true);
+        confirmOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmOrderButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(confirmOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 180, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
@@ -179,7 +185,8 @@ public class windowOrders2 extends javax.swing.JFrame {
                     product.setStock(product.getStock() - Integer.parseInt(qtyorder));
                     availableProductsTextArea.setText(NodoWh.getStock().Print());
                 } else {
-                    JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock!");
+                    Object[] array = functions.getClosestWarehouse(windowMain.grafo, NodoWh, productorder);
+                    JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá su pedido al almacen" + array[2]);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Atención!: Producto inexistente.");
@@ -197,6 +204,21 @@ public class windowOrders2 extends javax.swing.JFrame {
     private void qtyTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyTextFieldKeyTyped
         windowMain.auxFunc.verifyInt(evt, qtyTextField, 10);
     }//GEN-LAST:event_qtyTextFieldKeyTyped
+
+    private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmOrderButtonActionPerformed
+//       if (){
+//       
+//       
+//       } else {
+//       
+//       
+//       }
+//        
+        JOptionPane.showMessageDialog(this, "Éxito: Pedido realizado con éxito!");
+        windowMain main= new windowMain();
+        main.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_confirmOrderButtonActionPerformed
 
     /**
      * @param args the command line arguments

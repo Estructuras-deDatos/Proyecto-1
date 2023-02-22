@@ -170,7 +170,7 @@ public class windowStock extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Producto en el inventario: se le ha sumado al stock!");
                 windowMain.auxFunc.searchProduct(NodoWh, product).addStock(qty);
             } else {
-                NodoWh.newStockP(product, qty); }
+                NodoWh.newStockP(windowMain.auxFunc.UpperFirstLetter(product), qty); }
             availableProductsTextArea.setText(NodoWh.getStock().Print());
         }  
     }//GEN-LAST:event_addProductButtonActionPerformed

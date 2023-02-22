@@ -1,5 +1,8 @@
 package proyecto.pkg1.interfaces;
 
+import javax.swing.JOptionPane;
+import proyecto.pkg1.grafo.NodoV;
+
 /**
  *
  * @author beatrizcardozo
@@ -146,10 +149,15 @@ public class windowOrders1 extends javax.swing.JFrame {
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         if(windowMain.auxFunc.enabledButtons(nameTextField, dniTextField, nextButton) && windowMain.auxFunc.checkListSelec(warehouseJList)){ 
-            String nombreAlmacen = warehouseJList.getSelectedValue();
-            windowOrders2 pedidos2 = new windowOrders2(windowMain.grafo.getList().Search(nombreAlmacen));
-            this.setVisible(false);
-            pedidos2.show();
+            String warehouseName = warehouseJList.getSelectedValue();
+            NodoV warehouseNodo = windowMain.grafo.getList().Search(warehouseName);
+            if (warehouseNodo.getStock().getSize() > 0){
+                windowOrders2 pedidos2 = new windowOrders2(warehouseNodo);
+                this.setVisible(false);
+                pedidos2.show();
+            } else {
+                JOptionPane.showMessageDialog(this, "Atención: este almacen no posee productos. Disculpe las molestias!");
+            }
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 

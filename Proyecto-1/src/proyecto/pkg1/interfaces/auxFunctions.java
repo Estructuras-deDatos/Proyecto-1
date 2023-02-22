@@ -1,5 +1,4 @@
 package proyecto.pkg1.interfaces;
-import java.awt.TextArea;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
