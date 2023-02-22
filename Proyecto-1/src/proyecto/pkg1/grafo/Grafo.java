@@ -24,15 +24,18 @@ public class Grafo {
         NodoV nOrigin = vertex.Search(origin);
         NodoV nDestination=vertex.Search(destination);
         if (nOrigin !=null && nDestination!=null){
+            
             if(nOrigin.getAdy().Search(nDestination)!=null){
                 return true;
-            }     
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
-        }
-        return false;
        }
+    }
     
     public boolean VertexExists(Object data){
         NodoV wanted = vertex.Search(data);
