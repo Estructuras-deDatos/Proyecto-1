@@ -22,6 +22,15 @@ public class ListS {
         this.size = 0;
     }
     
+    public String PrintProducts(){
+        String cadena = "";
+        NodoP aux = pFirst;
+        for (int i = 0; i < size;i++){
+            cadena += aux.PrintProduct() + "\n";
+        }
+        return cadena;
+    
+    }
     public NodoP Search(Object data){
         NodoP aux;
        for (aux=(NodoP) pFirst; aux!=null;aux=(NodoP) aux.getNext()){
@@ -145,5 +154,6 @@ public class ListS {
     public void setSize(int size) {
         this.size = size;
     }
+
     
 }
