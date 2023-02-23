@@ -32,7 +32,7 @@ public class NodoP {
         if (this.getStock() > 0){
             if(this.getStock() < numPedido){
                 return false;
-            } else if (this.getStock() > numPedido){
+            } else if (this.getStock() >= numPedido){
                 return true;
             }
         } 

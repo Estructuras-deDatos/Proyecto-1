@@ -14,6 +14,7 @@ import org.graphstream.graph.implementations.*;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
+import proyecto.pkg1.interfaces.auxFunctions;
 
 
 /**
@@ -22,6 +23,115 @@ import org.graphstream.ui.view.Viewer;
  */
 public class functions {
     
+     //Recorrido en profundidad
+    public static String RecorrerProfundidad(Grafo g, int v, boolean[] visitados){
+        
+        visitados[v] = true;
+        boolean encontrado = false;
+        NodoV aux = (NodoV)g.getList().getpFirst();
+        while(!encontrado && aux != null){
+            if((int)aux.getData() == v){
+                encontrado = true;
+                
+                return "Almacen " + aux.getData()+"\n"+ aux.getStock().PrintProducts();
+                
+            }
+            
+            aux = (NodoV)aux.getNext();
+        }
+        
+          NodoV Aux2 = (NodoV)g.getList().getpFirst();
+          
+        try{
+        for (int i = 0;i<aux.getAdy().getSize();i++){
+              
+            if((v!=i) && (!visitados[i]) && (g.ArcExists(aux,Aux2 )) ){
+                RecorrerProfundidad(g, i, visitados);
+            }
+            Aux2 = (NodoV)Aux2.getNext();  
+        }
+        }
+        catch(Exception e){
+        
+        }
+        
+        return "";
+    }
+    
+    public static String DepthFirstSearch(Grafo g){
+        String toPrint="Recorrido en Profundidad de Disponibilidad de Almacenes\n";
+        boolean visitados [] = new boolean[g.getList().getSize()];
+        for(int i = 0;i<g.getList().getSize();i++){
+            visitados[i] = false;
+        }
+        for (int j = 0;j<g.getList().getSize();j++){
+            if(!visitados[j]){
+                toPrint+=RecorrerProfundidad(g,j, visitados);
+            }
+        }
+        return toPrint;
+    }
+    
+    /* la funcion para manejar todos los pedidos que la cantidad pedida sea mayor a la que esta disponible en el 
+    almacen seleccionado. 
+    Maneja dos escenarios principales: 
+        1. Que otro almacen tenga suficiente para completar la orden
+            usa getClosestWarehouse, donde se busca el almacen mas cercano con el stock suficiente para cubrir la orden
+        2. Que no hayan suficiente stock en los otros almacenes
+            usa getWarehouseMaxStock, donde se busca el almacen con la mayor cantidad de stock del producto y se piden 
+            por completo.
+    
+    Hay dos posibilidades de retorno:
+        1. null - no hay almacen con stock del producto
+        2. un array de 4 objetos:
+            array[0] - indica si se esta en el primer o segundo escenario
+                principalmente para distinciones que se quieran hacer en impresion
+            array[1] = distancia entre los almacenes
+            array[2] = ruta entre los almacenes
+            array[3] = objeto NodoV del cual se esta haciendo el pedido auxiliar
+            array[4] = la cantidad de productos que se estan pidiendo en el almacen auxiliar
+                
+    */
+    public static Object[] manageStockRequests(Grafo grafo, NodoV selW, String prod, int quan){
+        NodoP nProd = (NodoP)selW.getStock().Search(prod);
+            quan -= nProd.getStock();
+            Object [] result = getClosestWarehouse(grafo, selW, prod, quan);
+            if(result[3] == null){
+                result = getWarehouseMaxStock(grafo, selW, prod);
+                if(result[3]== null){
+                    return null;
+                }
+                else{
+                    return result;
+                }
+            }
+            else{
+                return result;
+            }   
+    }
+    
+    public static Object[] getWarehouseMaxStock(Grafo grafo, NodoV selW, String prod){
+        Object[] result = new Object[5];
+        NodoV aux = (NodoV) grafo.getList().getpFirst();
+        NodoV maxStockWarehouse = null;
+        Integer maxStock= Integer.MIN_VALUE;
+        while (aux!=null){
+            NodoP found = aux.getStock().Search(prod);
+            if(found!=null && found.getStock()>maxStock){
+                maxStockWarehouse =aux;
+                maxStock= found.getStock();
+            }
+            aux=(NodoV) aux.getNext();
+        }
+        Object[] ret = getWay(maxStockWarehouse, selW, aux);
+        result[0]=false;
+        result[1]=ret[0];
+        result[2]=ret[1];
+        result[3]=maxStockWarehouse;
+        result[4]=maxStock;
+        return result;
+    }
+    
     /* esta es la funcion a implementar de realizar pedido, recibe el grafo general, 
     el Nodo del almacen seleccionado para el pedido, y el nombre (string) del producto que se requiere
     
@@ -29,11 +139,13 @@ public class functions {
     [0] - la distancia que hay entre el almacen mas cercano con el producto
     [1] - la ruta que debe tomar para llegar al almacen
     [2] - el NodoV del almacen al cual se le pediria el producto
+    [3] - el int que corresponde a los productos requeridos/pedidos del almacen
     */
     
-    public static Object[] getClosestWarehouse(Grafo grafo, NodoV selW, String prod){
-        Object[] result = new Object[3];
-        ListV warehouses = getWarehouses(grafo, prod);
+    public static Object[] getClosestWarehouse(Grafo grafo, NodoV selW, String prod, int quant){
+        Object[] result = new Object[5];
+        ListV warehouses = getWarehouses(grafo, prod, quant);
+        if(warehouses!=null){
         NodoV aux =(NodoV) warehouses.getpFirst();
         NodoV closestWarehouse=null;
         float distance;
@@ -51,19 +163,24 @@ public class functions {
             }
             aux=(NodoV)aux.getNext();
         }
-        result[0] = distMin;
-        result[1]=final_route;
-        result[2]=closestWarehouse;
-        return result;
+        result[0]=true;
+        result[1] = distMin;
+        result[2]=final_route;
+        result[3]=closestWarehouse;
+        result[4]=quant;
+        return result;}
+        else{
+            return null;
+        }
     }
     
-    public static ListV getWarehouses(Grafo grafo, String prod){
+    public static ListV getWarehouses(Grafo grafo, String prod, int quant){
         ListV warehouses = grafo.getList();
         ListV result = new ListV();
         NodoV aux = (NodoV)warehouses.getpFirst();
         while(aux!=null){
             NodoP found = aux.getStock().Search(prod);
-            if(found!=null){
+            if(found!=null && found.getStock()>=quant){
                 result.Insert(aux);
             }
             aux=(NodoV)aux.getNext();
@@ -105,39 +222,8 @@ public class functions {
         return result;
     }
     
-    //Recorrido en profundidad
-    public void RecorrerProfundidad(Grafo g, int v, boolean[] visitados){
-       
-        visitados[v] = true;
-        boolean encontrado = false;
-        NodoV aux = (NodoV)g.getList().getpFirst();
-        while(!encontrado && aux != null){
-            if((int)aux.getData() == v){
-                encontrado = true;
-                
-                System.out.println(aux.getStock().PrintProducts());
-                
-            }
-            
-            aux = (NodoV)aux.getNext();
-        }
-        
-          NodoV Aux2 = (NodoV)g.getList().getpFirst();
-          
-        try{
-        for (int i = 0;i<aux.getAdy().getSize();i++){
-              
-            if((v!=i) && (!visitados[i]) && (g.ArcExists(aux,Aux2 )) ){
-                RecorrerProfundidad(g, i, visitados);
-            }
-            Aux2 = (NodoV)Aux2.getNext();  
-        }
-        }
-        catch(Exception e){
-        
-        }
-    }  
-        
+    
+ 
     
     public static NodoV find_beginning(Grafo grafo){
         ListV vertex = grafo.getList();
@@ -267,11 +353,11 @@ public class functions {
                 info+="Almacen "+(String)aux.getData()+":\n";
                 NodoP stock = aux.getStock().getpFirst();
                 while(stock.getNext()!=null){
-                    info+=stock.getNameP()+","+Integer.toString(stock.getStock())+"\n";
+                    info+= auxFunctions.UpperFirstLetter(stock.getNameP())+","+Integer.toString(stock.getStock())+"\n";
                     stock=stock.getNext();
                 }
                 stock=aux.getStock().getpLast();
-                info+=stock.getNameP()+","+Integer.toString(stock.getStock())+";\n";
+                info+=auxFunctions.UpperFirstLetter(stock.getNameP())+","+Integer.toString(stock.getStock())+";\n";
                 aux=(NodoV) aux.getNext();
             }
             info+="Rutas;\n";
@@ -338,7 +424,7 @@ public class functions {
                         if(mode){
                             String[] product_info = split_txt[i].split(",");
                             int stock = validations.validateInt(product_info[1]);
-                            almacen.newStockP(product_info[0], stock);
+                            almacen.newStockP(product_info[0].toLowerCase(), stock);
                             
                         }
                         else{

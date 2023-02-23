@@ -178,6 +178,7 @@ public class windowMain extends javax.swing.JFrame {
         windowShowGraph windowGrafo1 = new windowShowGraph();
         windowGrafo1.show();
         this.setVisible(false);
+        System.out.println(functions.DepthFirstSearch(grafo));
         
         
     }//GEN-LAST:event_verGrafoButtonActionPerformed

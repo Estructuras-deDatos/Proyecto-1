@@ -75,7 +75,7 @@ public class auxFunctions {
 
     }
     
-    public String UpperFirstLetter(String str){
+    public static String UpperFirstLetter(String str){
         String res = str.substring(0, 1).toUpperCase() + str.substring(1); 
         return res;
     }

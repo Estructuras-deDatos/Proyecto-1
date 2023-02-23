@@ -185,9 +185,23 @@ public class windowOrders2 extends javax.swing.JFrame {
                     product.setStock(product.getStock() - Integer.parseInt(qtyorder));
                     availableProductsTextArea.setText(NodoWh.getStock().Print());
                 } else {
-                    Object[] array = functions.getClosestWarehouse(windowMain.grafo, NodoWh, productorder);
-                    JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá su pedido al almacen" + array[2]);
+                    
+                    Object[] array = functions.manageStockRequests(windowMain.grafo, NodoWh, productorder, Integer.parseInt(qtyorder) );
+                    if(array!=null){
+                       NodoV auxWh=(NodoV)array[3];
+                       if((boolean)array[0]){
+                           JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá" + array[4]+ productorder+ "pedido al almacen" + auxWh.getData()+"\n Siguiendo la ruta "+array[2]);}
+                        else{
+                        
+                           JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá " + array[4]+ productorder+ " pedido al almacen" + auxWh.getData()+"\n Siguiendo la ruta "+array[2]);
+                       }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Producto No Disponible");
+                    }
                 }
+                    
+                    
             } else {
                 JOptionPane.showMessageDialog(this, "Atención!: Producto inexistente.");
                 productTextField.setText("");
