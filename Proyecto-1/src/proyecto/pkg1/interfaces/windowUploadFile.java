@@ -4,6 +4,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import proyecto.pkg1.grafo.Grafo;
+import proyecto.pkg1.grafo.NodoV;
 import proyecto.pkg1.grafo.functions;
 
 /**
@@ -58,7 +59,7 @@ public class windowUploadFile extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Incluya el archivo de texto requerido, para estructurar el grafo:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 72, 430, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 520, 40));
 
         filePath.setEditable(false);
         filePath.setBackground(new java.awt.Color(204, 204, 204));
@@ -139,7 +140,7 @@ public class windowUploadFile extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Si desea guardar o actualizar los datos, en su archivo de texto:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 430, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 440, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
 
@@ -164,6 +165,8 @@ public class windowUploadFile extends javax.swing.JFrame {
         if(read){
            windowMain.grafo = new Grafo();
             functions.read_txt(file, windowMain.grafo); 
+            NodoV last = (NodoV) windowMain.grafo.getList().getpLast();
+            windowMain.WareId= last.getId()+1;
             loaded = true;
        } else {
            loaded = false;

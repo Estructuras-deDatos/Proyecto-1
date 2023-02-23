@@ -15,7 +15,7 @@ public class windowProductAvailability extends javax.swing.JFrame {
         setSize(700, 600);
         setLocationRelativeTo(null);
         BFSTextArea.setText(windowMain.func.BFS_report(windowMain.grafo));
-        //DFSTextArea.setText(windowMain.func.DFS_report(windowMain.grafo));
+        DFSTextArea.setText(windowMain.func.DFS_report(windowMain.grafo));
     }
 
     /**

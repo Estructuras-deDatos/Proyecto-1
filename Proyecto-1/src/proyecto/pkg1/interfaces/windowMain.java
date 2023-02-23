@@ -14,6 +14,7 @@ public class windowMain extends javax.swing.JFrame {
     static public auxFunctions auxFunc;
     static public functions func;
     static public ViewPanel graph;
+    public static int WareId;
     
     /**
      * Creates new form windowAdminHome
@@ -178,9 +179,6 @@ public class windowMain extends javax.swing.JFrame {
         windowShowGraph windowGrafo1 = new windowShowGraph();
         windowGrafo1.show();
         this.setVisible(false);
-        System.out.println(functions.DepthFirstSearch(grafo));
-        
-        
     }//GEN-LAST:event_verGrafoButtonActionPerformed
 
     private void disponibilidadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disponibilidadButtonActionPerformed

@@ -1,6 +1,7 @@
 package proyecto.pkg1.interfaces;
 import javax.swing.JOptionPane;
 import proyecto.pkg1.grafo.Grafo;
+import proyecto.pkg1.grafo.NodoV;
 
 /**
  *
@@ -287,6 +288,9 @@ public class windowWarehouse extends javax.swing.JFrame {
             }
             else {
                 windowMain.grafo.NewVertex(warehouseName);
+                NodoV aux = (NodoV)windowMain.grafo.getList().Search(warehouseName);
+                aux.setId(windowMain.WareId);
+                windowMain.WareId++;
                 windowMain.grafo.NewArc(warehouseName, firstwhJComboBox.getSelectedItem(), Float.valueOf(firstwhDistanceTextField.getText()));
                 windowMain.grafo.NewArc(secondwhJComboBox.getSelectedItem(), warehouseName,Float.valueOf(secondwhDistanceTextField.getText()));
                 JOptionPane.showMessageDialog(this, "Almacen registrado con éxito!");

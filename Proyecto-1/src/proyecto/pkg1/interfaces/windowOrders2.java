@@ -193,7 +193,7 @@ public class windowOrders2 extends javax.swing.JFrame {
                            JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá" + array[4]+ productorder+ "pedido al almacen" + auxWh.getData()+"\n Siguiendo la ruta "+array[2]);}
                         else{
                         
-                           JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá " + array[4]+ productorder+ " pedido al almacen" + auxWh.getData()+"\n Siguiendo la ruta "+array[2]);
+                           JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá un maximo de " + array[4]+ productorder+ " pedido al almacen" + auxWh.getData()+"\n Siguiendo la ruta "+array[2]);
                        }
                     }
                     else{

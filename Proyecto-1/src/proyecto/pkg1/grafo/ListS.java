@@ -4,6 +4,8 @@
  */
 package proyecto.pkg1.grafo;
 
+import proyecto.pkg1.interfaces.auxFunctions;
+
 /**
  *
  * @author andre
@@ -22,15 +24,6 @@ public class ListS {
         this.size = 0;
     }
     
-    public String PrintProducts(){
-        String cadena = "";
-        NodoP aux = pFirst;
-        for (int i = 0; i < size;i++){
-            cadena += aux.PrintProduct() + "\n";
-        }
-        return cadena;
-    
-    }
     public NodoP Search(Object data){
         NodoP aux;
        for (aux=(NodoP) pFirst; aux!=null;aux=(NodoP) aux.getNext()){
@@ -103,7 +96,7 @@ public class ListS {
         String toPrint="";
         NodoP index;
         for (index=(NodoP)pFirst; index!=null; index=(NodoP)index.getNext()){
-            String Name=index.getNameP();
+            String Name=auxFunctions.UpperFirstLetter(index.getNameP());
             int stck = index.getStock();
             toPrint+= "Producto: " + Name + "  Stock: " + stck +"\n";
             

@@ -13,12 +13,13 @@ import proyecto.pkg1.abstracts.Nodo;
 public class NodoV extends Nodo {
 
    
-    
+    public int id;
     public ListS stock;
     public ListA ady;
 
     public NodoV(Object data) {
         super(data);
+        this.id=0;
         this.ady=null;
         this.stock= new ListS();
     }
@@ -86,5 +87,19 @@ public class NodoV extends Nodo {
      */
     public ListA getAdy() {
         return ady;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

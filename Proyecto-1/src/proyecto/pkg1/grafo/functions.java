@@ -25,41 +25,49 @@ public class functions {
     
      //Recorrido en profundidad
     public static String RecorrerProfundidad(Grafo g, int v, boolean[] visitados){
-        
+        String toPrint="";
         visitados[v] = true;
         boolean encontrado = false;
         NodoV aux = (NodoV)g.getList().getpFirst();
+        NodoV encontradoN=null;
         while(!encontrado && aux != null){
-            if((int)aux.getData() == v){
+            if(aux.getId() == v){
                 encontrado = true;
-                
-                return "Almacen " + aux.getData()+"\n"+ aux.getStock().PrintProducts();
-                
+                encontradoN=aux;
+                toPrint+= "Almacen " + aux.getData()+"\n";
+                if(aux.print_stock().equals("")){
+                    toPrint+="No Hay Stock Disponible";
+                }
+                else{
+                    toPrint+=aux.print_stock();
+                }         
             }
             
             aux = (NodoV)aux.getNext();
         }
         
-          NodoV Aux2 = (NodoV)g.getList().getpFirst();
+          
           
         try{
-        for (int i = 0;i<aux.getAdy().getSize();i++){
-              
-            if((v!=i) && (!visitados[i]) && (g.ArcExists(aux,Aux2 )) ){
-                RecorrerProfundidad(g, i, visitados);
+        NodoA ady = (NodoA)encontradoN.getAdy().getpFirst();
+        for (int i = 0;i<encontradoN.getAdy().getSize();i++){
+            NodoV dest = (NodoV)ady.getData();
+            if((v!=i) && (!visitados[i]) && (g.ArcExists(encontradoN.getData(),dest.getData() )) ){
+                toPrint+=RecorrerProfundidad(g, i, visitados);
             }
-            Aux2 = (NodoV)Aux2.getNext();  
+            ady = (NodoA)ady.getNext();  
         }
         }
         catch(Exception e){
+            JOptionPane.showMessageDialog(null, encontradoN.getData());
         
         }
         
-        return "";
+        return toPrint;
     }
     
-    public static String DepthFirstSearch(Grafo g){
-        String toPrint="Recorrido en Profundidad de Disponibilidad de Almacenes\n";
+    public static String DFS_report(Grafo g){
+        String toPrint="Disponibilidad de Almacenes\n";
         boolean visitados [] = new boolean[g.getList().getSize()];
         for(int i = 0;i<g.getList().getSize();i++){
             visitados[i] = false;
@@ -96,7 +104,7 @@ public class functions {
         NodoP nProd = (NodoP)selW.getStock().Search(prod);
             quan -= nProd.getStock();
             Object [] result = getClosestWarehouse(grafo, selW, prod, quan);
-            if(result[3] == null){
+            if(result == null){
                 result = getWarehouseMaxStock(grafo, selW, prod);
                 if(result[3]== null){
                     return null;
@@ -117,13 +125,13 @@ public class functions {
         Integer maxStock= Integer.MIN_VALUE;
         while (aux!=null){
             NodoP found = aux.getStock().Search(prod);
-            if(found!=null && found.getStock()>maxStock){
+            if(found!=null && found.getStock()>maxStock && selW != aux){
                 maxStockWarehouse =aux;
                 maxStock= found.getStock();
             }
             aux=(NodoV) aux.getNext();
         }
-        Object[] ret = getWay(maxStockWarehouse, selW, aux);
+        Object[] ret = getWay(maxStockWarehouse, selW, maxStockWarehouse);
         result[0]=false;
         result[1]=ret[0];
         result[2]=ret[1];
@@ -144,43 +152,43 @@ public class functions {
     
     public static Object[] getClosestWarehouse(Grafo grafo, NodoV selW, String prod, int quant){
         Object[] result = new Object[5];
-        ListV warehouses = getWarehouses(grafo, prod, quant);
-        if(warehouses!=null){
-        NodoV aux =(NodoV) warehouses.getpFirst();
-        NodoV closestWarehouse=null;
-        float distance;
-        String route;
-        Float distMin =Float.POSITIVE_INFINITY;
-        String final_route="";
-        while(aux!=null){
-            Object[] temp = getWay((NodoV) aux.getData(), selW,(NodoV) aux.getData());
-            distance = (float) temp[0];
-            route=(String) temp[1];
-            if(distance<distMin){
-                distMin=distance;
-                final_route=route;
-                closestWarehouse = (NodoV) aux.getData();
+        ListV warehouses = getWarehouses(grafo,selW, prod, quant);
+        if(!warehouses.isEmpty()){
+            NodoV aux =(NodoV) warehouses.getpFirst();
+            NodoV closestWarehouse=null;
+            float distance;
+            String route;
+            Float distMin =Float.POSITIVE_INFINITY;
+            String final_route="";
+            while(aux!=null){
+                Object[] temp = getWay((NodoV) aux.getData(), selW,(NodoV) aux.getData());
+                distance = (float) temp[0];
+                route=(String) temp[1];
+                if(distance<distMin){
+                    distMin=distance;
+                    final_route=route;
+                    closestWarehouse = (NodoV) aux.getData();
+                }
+                aux=(NodoV)aux.getNext();
             }
-            aux=(NodoV)aux.getNext();
-        }
-        result[0]=true;
-        result[1] = distMin;
-        result[2]=final_route;
-        result[3]=closestWarehouse;
-        result[4]=quant;
-        return result;}
+            result[0]=true;
+            result[1] = distMin;
+            result[2]=final_route;
+            result[3]=closestWarehouse;
+            result[4]=quant;
+            return result;}
         else{
             return null;
         }
     }
     
-    public static ListV getWarehouses(Grafo grafo, String prod, int quant){
+    public static ListV getWarehouses(Grafo grafo, NodoV selW, String prod, int quant){
         ListV warehouses = grafo.getList();
         ListV result = new ListV();
         NodoV aux = (NodoV)warehouses.getpFirst();
         while(aux!=null){
             NodoP found = aux.getStock().Search(prod);
-            if(found!=null && found.getStock()>=quant){
+            if(found!=null && found.getStock()>=quant && selW!=aux){
                 result.Insert(aux);
             }
             aux=(NodoV)aux.getNext();
@@ -229,12 +237,8 @@ public class functions {
         ListV vertex = grafo.getList();
         NodoV aux =(NodoV) vertex.getpFirst();
         NodoV beginning = aux;
-        int comp;
-        String name;
         while(aux!=null){
-            name=(String)beginning.getData();
-            comp = name.compareTo((String)aux.getData());
-            if(comp>0){
+            if(aux.getId()==0){
                 beginning = aux;
             }
             aux=(NodoV) aux.getNext();
@@ -249,7 +253,7 @@ public class functions {
     
     
     public static String BFS_report(Grafo grafo){
-        String report = "Recorrido en Anchura de la Disponibilidad de los Almacenes:\n";
+        String report = "Disponibilidad de los Almacenes:\n";
         if(!grafo.IsEmpty()){
             Queue queue = new Queue();
             ListV visited = new ListV();
@@ -260,7 +264,12 @@ public class functions {
                 aux=queue.dequeue();
                 if(!has_been_visited(aux.getData(), visited)){
                     report+= "Almacen "+(String)aux.getData()+": \n";
+                    if(aux.print_stock().equals("")){
+                    report+="No Hay Stock Disponible";
+                    }
+                    else{
                     report+=aux.print_stock();
+                    }    
                     visited.Insert(aux.getData());
                 }
                 NodoA auxAdy = (NodoA) aux.getAdy().getpFirst();
@@ -405,6 +414,7 @@ public class functions {
                 String[] split_txt=read.split("\n");
                 boolean mode=true;
                 NodoV almacen=null;
+                int ID=0;
                 for (int i=0; i<split_txt.length;i++){
                     if(split_txt[i].contains(";")){
                         if(split_txt[i].equals("Almacenes;")){
@@ -419,6 +429,8 @@ public class functions {
                         String name= alm_info[1].replace(":", "");
                         grafo.NewVertex(name);
                         almacen=grafo.getList().Search(name);
+                        almacen.setId(ID);
+                        ID++;
                     }
                     if(split_txt[i].contains(",")){
                         if(mode){
