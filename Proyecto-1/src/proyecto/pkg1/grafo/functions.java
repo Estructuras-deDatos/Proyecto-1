@@ -131,12 +131,18 @@ public class functions {
             }
             aux=(NodoV) aux.getNext();
         }
-        Object[] ret = getWay(maxStockWarehouse, selW, maxStockWarehouse);
+        if(maxStockWarehouse!=null){
+        ListV visited = new ListV();
+        Object[] ret = getWay(maxStockWarehouse, selW, maxStockWarehouse, visited);
         result[0]=false;
         result[1]=ret[0];
         result[2]=ret[1];
         result[3]=maxStockWarehouse;
-        result[4]=maxStock;
+        result[4]=maxStock;}
+        else{
+            result=null;
+        }
+        
         return result;
     }
     
@@ -161,7 +167,8 @@ public class functions {
             Float distMin =Float.POSITIVE_INFINITY;
             String final_route="";
             while(aux!=null){
-                Object[] temp = getWay((NodoV) aux.getData(), selW,(NodoV) aux.getData());
+                ListV visited = new ListV();
+                Object[] temp = getWay((NodoV) aux.getData(), selW,(NodoV) aux.getData(), visited);
                 distance = (float) temp[0];
                 route=(String) temp[1];
                 if(distance<distMin){
@@ -196,7 +203,7 @@ public class functions {
         return result;
     }
     
-    public static Object[] getWay(NodoV origen, NodoV destino, NodoV inicio){
+    public static Object[] getWay(NodoV origen, NodoV destino, NodoV inicio, ListV visited){
         float distance;
         String route;
         Object[] result = new Object[2];
@@ -209,17 +216,19 @@ public class functions {
             result[0]= res;
             result[1]= (String) origen.getData();
             return result;
-        }else if ((NodoV) aux.getData()!=inicio){
+        }else if ((NodoV) aux.getData()!=inicio && !check_visited(visited,(NodoV)aux.getData())){
             int count =0;
             while(count < list.getSize()){
-                distance=aux.getWeight();
-                route=(String)origen.getData()+" - ";
-                result= getWay((NodoV)aux.getData(), destino, inicio);
-                distance+= (Float) result[0];
-                route+=(String) result[1];
-                if(distance<= distMin){
-                    distMin=distance;
-                    final_route= route;
+                    distance=aux.getWeight();
+                    route=(String)origen.getData()+" - ";
+                    NodoV where = (NodoV)aux.getData();
+                    visited.Insert(where.getData());
+                    result= getWay((NodoV)aux.getData(), destino, inicio, visited);
+                    distance+= (Float) result[0];
+                    route+=(String) result[1];
+                    if(distance<= distMin){
+                        distMin=distance;
+                        final_route= route;
                 }
                 aux=(NodoA)aux.getNext();
                 count++;
@@ -230,7 +239,13 @@ public class functions {
         return result;
     }
     
-    
+    public static boolean check_visited(ListV visited, NodoV aux){
+        if(!visited.isEmpty()){
+            return visited.Search(aux.getData())!= null;
+        }else{
+            return false;
+        }
+    }
  
     
     public static NodoV find_beginning(Grafo grafo){
