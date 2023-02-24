@@ -90,7 +90,7 @@ public class windowOrders2 extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Realizar Pedidos");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 190, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 220, -1));
 
         jSeparator1.setForeground(new java.awt.Color(153, 204, 255));
         jSeparator1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N

@@ -106,7 +106,7 @@ public class functions {
             Object [] result = getClosestWarehouse(grafo, selW, prod, quan);
             if(result == null){
                 result = getWarehouseMaxStock(grafo, selW, prod);
-                if(result[3]== null){
+                if(result== null){
                     return null;
                 }
                 else{
