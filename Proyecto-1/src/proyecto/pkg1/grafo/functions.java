@@ -23,6 +23,23 @@ import proyecto.pkg1.interfaces.auxFunctions;
  */
 public class functions {
     
+    
+    public static void updateStock(ListV order){
+        NodoV aux = (NodoV) order.getpFirst();
+        while(aux!=null){
+            Object [] info = (Object[]) aux.getData();
+            NodoV warehouse =(NodoV) info[0];
+            String product = (String)info[1];
+            Integer quant = (Integer) info[2];
+            NodoP toUpdate = warehouse.getStock().Search(product);
+            toUpdate.setStock(toUpdate.getStock()-quant);
+            warehouse.getStock().update();
+            aux=(NodoV)aux.getNext();
+        }
+        order.Empty();
+        
+    }
+    
      //Recorrido en profundidad
     public static String RecorrerProfundidad(Grafo g, int v, boolean[] visitados){
         String toPrint="";
@@ -375,6 +392,7 @@ public class functions {
             NodoV aux=(NodoV)grafo.vertex.getpFirst();
             while(aux!=null){
                 info+="Almacen "+(String)aux.getData()+":\n";
+                if(!aux.getStock().isEmpty()){
                 NodoP stock = aux.getStock().getpFirst();
                 while(stock.getNext()!=null){
                     info+= auxFunctions.UpperFirstLetter(stock.getNameP())+","+Integer.toString(stock.getStock())+"\n";
@@ -382,6 +400,7 @@ public class functions {
                 }
                 stock=aux.getStock().getpLast();
                 info+=auxFunctions.UpperFirstLetter(stock.getNameP())+","+Integer.toString(stock.getStock())+";\n";
+                }
                 aux=(NodoV) aux.getNext();
             }
             info+="Rutas;\n";

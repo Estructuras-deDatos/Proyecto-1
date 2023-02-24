@@ -24,6 +24,16 @@ public class ListS {
         this.size = 0;
     }
     
+    public void update(){
+        NodoP aux = getpFirst();
+        while(aux!=null){
+            if (aux.getStock()==0){
+                Remove(aux.getNameP());
+            }
+            aux=aux.getNext();
+        }
+    }
+    
     public NodoP Search(Object data){
         NodoP aux;
        for (aux=(NodoP) pFirst; aux!=null;aux=(NodoP) aux.getNext()){

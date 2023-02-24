@@ -15,7 +15,12 @@ public class ListV extends List{
     public ListV() {
     }
     
-
+    
+    public void Empty(){
+        setpFirst(null);
+        setpLast(null);
+        setSize(0);
+    }
     @Override
     public NodoV Search(Object data) {
        NodoV aux;

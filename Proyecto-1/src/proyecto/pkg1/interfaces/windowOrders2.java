@@ -5,6 +5,7 @@ import proyecto.pkg1.grafo.NodoV;
 import proyecto.pkg1.grafo.NodoP; 
 import proyecto.pkg1.grafo.functions;
 import javax.swing.ImageIcon;
+import proyecto.pkg1.grafo.ListV;
 
 
 /**
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 public class windowOrders2 extends javax.swing.JFrame {
     
     static NodoV NodoWh;
+    static ListV Order = new ListV();
 
     /**
      * Creates new form window2Pedidos
@@ -177,17 +179,29 @@ public class windowOrders2 extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void addtoOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtoOrderButtonActionPerformed
+        
         String qtyorder = qtyTextField.getText().trim();
         String productorder = productTextField.getText().toLowerCase().trim();
+        
        if(windowMain.auxFunc.enabledButtons(qtyTextField, productTextField, addtoOrderButton)){
            NodoP product = windowMain.auxFunc.searchProduct(NodoWh, productorder);
             if (product != null){
                 if(product.enoughStock(Integer.parseInt(qtyorder))){
                     OrdersTextArea.append("* " + windowMain.auxFunc.UpperFirstLetter(productorder) + ": " + qtyorder + " unidades. \n");
-                    product.setStock(product.getStock() - Integer.parseInt(qtyorder));
                     availableProductsTextArea.setText(NodoWh.getStock().Print());
                     confirmOrderButton.setEnabled(true);
+                    Object[] wanted = new Object[3];
+                    wanted[0]=NodoWh;
+                    wanted[1]=productorder;
+                    wanted[2]=Integer.parseInt(qtyorder);
+                    Order.Insert(wanted);
+                    
                 } else {
+                    Object[] wanted = new Object[3];
+                    wanted[0]=NodoWh;
+                    wanted[1]=productorder;
+                    wanted[2]=product.getStock();
+                    Order.Insert(wanted);
                     Object[] array = functions.manageStockRequests(windowMain.grafo, NodoWh, productorder, Integer.parseInt(qtyorder));
                     if(array != null){
                        NodoV auxWh=(NodoV)array[3];
@@ -195,9 +209,9 @@ public class windowOrders2 extends javax.swing.JFrame {
                            JOptionPane.showMessageDialog(this, "Advertencia: Este almacen no tiene suficiente stock! \n" + "Se le pedirá " + array[4]+ " " + productorder+ " al almacen " + auxWh.getData()+"\n Siguiendo la ruta "+ array[2]);
                            OrdersTextArea.append("* " + windowMain.auxFunc.UpperFirstLetter(productorder) + ": " + product.getStock() + " unidades. \n");
                            OrdersTextArea.append("* Pedido al " + "Almacen "+ auxWh.getData()+ ": " + windowMain.auxFunc.UpperFirstLetter(productorder) + ": " + array[4] + " unidades. \n");
-                           product.setStock(0);
                            availableProductsTextArea.setText(NodoWh.getStock().Print());
                            confirmOrderButton.setEnabled(true);
+                           
                        }else{
                            JOptionPane.showMessageDialog(this, "Advertencia: No hay suficiente stock! \n" + "Se le pedirá un maximo de " + array[4]+ productorder+ " al almacen" + auxWh.getData()+"\n Siguiendo la ruta "+ array[2]);
                            OrdersTextArea.append("* " + windowMain.auxFunc.UpperFirstLetter(productorder) + ": " + product.getStock() + " unidades. \n");
@@ -205,8 +219,16 @@ public class windowOrders2 extends javax.swing.JFrame {
                            product.setStock(0);
                            confirmOrderButton.setEnabled(true);
                        }
+                       Object[] auxWant = new Object[3];
+                       auxWant[0]=auxWh;
+                       auxWant[1]=productorder;
+                       auxWant[2]=array[4];
+                       Order.Insert(auxWant);
                     } else { //REVISAR AQUI
-                        JOptionPane.showMessageDialog(this, "Nota: Producto no Disponible en ninguno de nuestros almacenes!");
+                        JOptionPane.showMessageDialog(this, "Nota: Producto no Disponible en ninguno de nuestros almacenes!\n Su orden se procesara para la cantidad disponible en este almacen");
+                        OrdersTextArea.append("* " + windowMain.auxFunc.UpperFirstLetter(productorder) + ": " + Integer.toString(product.getStock()) + " unidades. \n");
+                        availableProductsTextArea.setText(NodoWh.getStock().Print());
+                        confirmOrderButton.setEnabled(true);
                     }
                 }   
             } else {
@@ -227,10 +249,12 @@ public class windowOrders2 extends javax.swing.JFrame {
     }//GEN-LAST:event_qtyTextFieldKeyTyped
 
     private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmOrderButtonActionPerformed
+
+        functions.updateStock(Order);
         JOptionPane.showMessageDialog(this, "Éxito: Pedido realizado con éxito!");
+        this.dispose();
         windowMain main= new windowMain();
         main.show();
-        this.setVisible(false);
     }//GEN-LAST:event_confirmOrderButtonActionPerformed
 
     /**
