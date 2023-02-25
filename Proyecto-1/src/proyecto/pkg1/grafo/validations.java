@@ -5,10 +5,17 @@
 package proyecto.pkg1.grafo;
 
 /**
- *
+ * Esta clase define metodos para la validacion y casteo de variables
  * @author andre
+ * @version 24/02/2022
  */
 public class validations {
+    
+    /**
+     * Metodo para castear un string a un float
+     * @param given Cadena a transformar
+     * @return el valor en float
+     */
     public static float validateFloat(String given){
         try{
             float casted = Float.parseFloat(given);
@@ -17,6 +24,12 @@ public class validations {
             return 0;
         }
     }
+    
+    /**
+     * Metodo para castear un string a un entero
+     * @param given Cadena a transformar
+     * @return el valor en entero
+     */
     
     public static int validateInt(String given){
         try{

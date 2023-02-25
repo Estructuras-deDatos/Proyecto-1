@@ -7,29 +7,37 @@ package proyecto.pkg1.grafo;
 import proyecto.pkg1.abstracts.Nodo;
 
 /**
- *
+ * Esta clase define objetos de nodos que guardan la informacion de las aristas del grafo
  * @author andre
+ * @version 24/02/2022
  */
 public class NodoA extends Nodo {
     
-    
+    //Campos de la clase
   
     private float weight;
 
+    /**
+    * Constructor de la clase 
+    * @params data, La informacion que se guarda en el nodo que se refiere al NodoV al que apunta la arista
+    */
+    
     public NodoA(Object data) {
         super(data);
         this.weight = 0;
     }
     
     /**
-     * @return the peso
+     * Metodo que retorna el peso de la arista del grafo
+     * @return el valor del peso de la arista
      */
     public float getWeight() {
         return weight;
     }
 
     /**
-     * @param weight
+     * Metodo que le asigna el peso a la arista
+     * @param el valor del peso de la arista
      */
     public void setWeight(float weight) {
         this.weight = weight;

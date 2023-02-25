@@ -18,10 +18,18 @@ import proyecto.pkg1.interfaces.auxFunctions;
 
 
 /**
- *
+ * Esta clase define metodos estaticos para el manejo y procesamiento de las demas clases
  * @author andre
+ * @version 24/02/2022
  */
 public class functions {
+    
+    /**
+     * Metodo para revisar si el producto ingresado por el usuario ya ha sido añadido a la lista de productos agregados a un pedido
+     * @param order Lista de productos ordenados
+     * @param input Nombre del producto ingresado
+     * @return Valor logico correspondiente a si el producto ya ha sido agregado al pedido
+     */
     
     public static boolean checkOrdered(ListV order, String input){
         NodoV aux = (NodoV) order.getpFirst();
@@ -36,6 +44,11 @@ public class functions {
         }
         return ordered;
     }
+    
+    /**
+     * Metodo para actualizar los inventarios de los almacenes a los que se les realizan los pedidos una vez confirmado el pedido
+     * @param order Lista que contiene la informacion de los productos y cantidad pedidas en los almacenes correspondientes
+     */
     
     public static void updateStock(ListV order){
         NodoV aux = (NodoV) order.getpFirst();
@@ -53,7 +66,13 @@ public class functions {
         
     }
     
-     //Recorrido en profundidad
+    /**
+     * Metodo recursivo para realizar el recorrido en profundidad del grafo
+     * @param g Grafo de los almacenes
+     * @param v indice del vertice correspondiente
+     * @param visitados Arreglo de valores logicos si los slmacenes son visitados 
+     * @return Una cadena con toda la informacion de los almacenes en terminos de disponibilidad de productos siguiendo el orden del recorrido
+     */
     public static String RecorrerProfundidad(Grafo g, int v, boolean[] visitados){
         String toPrint="";
         visitados[v] = true;
@@ -96,6 +115,12 @@ public class functions {
         return toPrint;
     }
     
+    /**
+     * Metodo para relanzar el recorrido en profundidad del grafo
+     * @param g Grafo a recorrer
+     * @return  Una cadena con toda la informacion de los almacenes en terminos de disponibilidad de productos siguiendo el orden del recorrido
+     */
+    
     public static String DFS_report(Grafo g){
         String toPrint="Disponibilidad de Almacenes\n";
         boolean visitados [] = new boolean[g.getList().getSize()];
@@ -110,26 +135,22 @@ public class functions {
         return toPrint;
     }
     
-    /* la funcion para manejar todos los pedidos que la cantidad pedida sea mayor a la que esta disponible en el 
-    almacen seleccionado. 
-    Maneja dos escenarios principales: 
-        1. Que otro almacen tenga suficiente para completar la orden
-            usa getClosestWarehouse, donde se busca el almacen mas cercano con el stock suficiente para cubrir la orden
-        2. Que no hayan suficiente stock en los otros almacenes
-            usa getWarehouseMaxStock, donde se busca el almacen con la mayor cantidad de stock del producto y se piden 
-            por completo.
-    
-    Hay dos posibilidades de retorno:
-        1. null - no hay almacen con stock del producto
-        2. un array de 4 objetos:
-            array[0] - indica si se esta en el primer o segundo escenario
-                principalmente para distinciones que se quieran hacer en impresion
-            array[1] = distancia entre los almacenes
-            array[2] = ruta entre los almacenes
-            array[3] = objeto NodoV del cual se esta haciendo el pedido auxiliar
-            array[4] = la cantidad de productos que se estan pidiendo en el almacen auxiliar
-                
-    */
+    /**
+     * Metodo para manejar los pedidos a almacenes que no tienen disponibilidad de inventario del producto requerido
+     * @param grafo Grafo de los almacenes
+     * @param selW el NodoV correspondiente al almacen seleccioado por el usuario
+     * @param prod Nombre del producto requerido por el usuario
+     * @param quan Cantidad del producto que se desea obtener
+     * @return Un arreglo de obtejos que contiene:
+     * array[0] - valor logico que indica si hay un almacen con suficiente stock para cubrir el restante del pedido 
+     * o si no hay suficiente inventario disponible en otro almacen para cubrir el pedido
+     * array[1] - La minima distancia entre los almacenes
+     * array[2] - La ruta entre los almacenes
+     * array[3] - El objeto NodoV del cual se esta haciendo el pedido auxiliar
+     * array[4] - La cantidad de productos que se estan pidiendo en el almacen auxiliar
+     * o null si no hay disponibilidad del producto en ningun otro almacen
+     * 
+     */
     public static Object[] manageStockRequests(Grafo grafo, NodoV selW, String prod, int quan){
         NodoP nProd = (NodoP)selW.getStock().Search(prod);
             quan -= nProd.getStock();
@@ -148,6 +169,14 @@ public class functions {
             }   
     }
     
+    /**
+     * Metodo para hallar el almacen con el maximo inventario de un producto seleccionado y la ruta mas corta del mismo al seleccionado
+     * @param grafo Grafo de almacenes
+     * @param selW el Nodo del almacen seleccionado por el usuario
+     * @param prod Nombre del producto deseado
+     * @return Un arreglo de objetos que contiene la informacion de la busqueda
+     * @see manageStockRequests()
+     */
     public static Object[] getWarehouseMaxStock(Grafo grafo, NodoV selW, String prod){
         Object[] result = new Object[5];
         NodoV aux = (NodoV) grafo.getList().getpFirst();
@@ -176,16 +205,15 @@ public class functions {
         return result;
     }
     
-    /* esta es la funcion a implementar de realizar pedido, recibe el grafo general, 
-    el Nodo del almacen seleccionado para el pedido, y el nombre (string) del producto que se requiere
-    
-    Retorna un array que tienen
-    [0] - la distancia que hay entre el almacen mas cercano con el producto
-    [1] - la ruta que debe tomar para llegar al almacen
-    [2] - el NodoV del almacen al cual se le pediria el producto
-    [3] - el int que corresponde a los productos requeridos/pedidos del almacen
-    */
-    
+    /**
+     * Metodo para hallar el almacen mas cercano al seleccionado con disponibilidad de inventario para complementar el pedido hecho 
+     * @param grafo Grafo de almacenes
+     * @param selW el Nodo del almacen seleccionado por el usuario
+     * @param prod Nombre del producto seleccionado
+     * @param quant Cantidad del producto que se debe buscar en los almacenes
+     * @return Un arreglo de objetos que contiene la informacion de la busqueda
+     * @see manageStockRequests()
+     */
     public static Object[] getClosestWarehouse(Grafo grafo, NodoV selW, String prod, int quant){
         Object[] result = new Object[5];
         ListV warehouses = getWarehouses(grafo,selW, prod, quant);
@@ -219,6 +247,15 @@ public class functions {
         }
     }
     
+    /**
+     * Metodo para buscar los almacenes que tienen disponibilidad de producto e inventario del producto seleccionado
+     * @param grafo Grafo de almacenes
+     * @param selW el Nodo del almacen seleccionado por el usuario
+     * @param prod Nombre del producto seleccionado
+     * @param quant Cantidad del producto que se debe buscar en los almacenes
+     * @return La lista de los almacenes encontrados
+     */
+    
     public static ListV getWarehouses(Grafo grafo, NodoV selW, String prod, int quant){
         ListV warehouses = grafo.getList();
         ListV result = new ListV();
@@ -232,6 +269,18 @@ public class functions {
         }
         return result;
     }
+    
+    /**
+     * Metodo recursivo aplicando el algoritmo de Dijkstra para hallar el camino mas corto entre el almacen con el inventario disponible
+     * y el almacen seleccionado
+     * @param origen el Nodo correspondiente al origen del camino, el almacen con el inventario disponible
+     * @param destino el Nodo seleccionado por el usuario, a donde debe llegar el camino
+     * @param inicio el Nodo del que inicia el camino 
+     * @param visited Lista de los almacenes que ya se han visitado en el recorrido
+     * @return un arreglo de objetos con la informacion de la busqueda
+     * array[0] - la minima distancia que se recorre
+     * array[1] - la ruta mas corta buscada
+     */
     
     public static Object[] getWay(NodoV origen, NodoV destino, NodoV inicio, ListV visited){
         float distance;
@@ -269,6 +318,13 @@ public class functions {
         return result;
     }
     
+    /**
+     * Metodo para revisar si un almacen ya ha sido visitado en la busqueda del camino mas corto
+     * @param visited Lista de los almacenes visitados
+     * @param aux el Nodo a revisar si ha sido visitado
+     * @return Valor logico correspondiente a si el almacen esta en la lista o no
+     */
+    
     public static boolean check_visited(ListV visited, NodoV aux){
         if(!visited.isEmpty()){
             return visited.Search(aux.getData())!= null;
@@ -276,6 +332,12 @@ public class functions {
             return false;
         }
     }
+    
+    /**
+     * Metodo para hallar el almacen con el menor ID para establecer el incio del recorrido en amplitud
+     * @param grafo Grafo de almacenes
+     * @return el Nodo con el menor ID
+     */
  
     
     public static NodoV find_beginning(Grafo grafo){
@@ -291,10 +353,21 @@ public class functions {
         return beginning;
     }
     
+    /**
+     * Metodo que revisa si un vertice ha sido visitado en el recorrido en amplitud
+     * @param aux Nodo que se desea revisar
+     * @param visited Lista de vertices visitados
+     * @return Valor logico correspondiente a si el almacen esta en la lista o no
+     */
     public static boolean has_been_visited(Object aux, ListV visited){
        return visited.Search(aux)!=null;
     }
     
+    /**
+     * Metodo para generar una cadena con toda la informacion de los almacenes siguiendo el orden del recorrido en amplitud
+     * @param grafo Grafo de almacenes
+     * @return Cadena con toda la informacion de los almacenes
+     */
     
     
     public static String BFS_report(Grafo grafo){
@@ -334,6 +407,11 @@ public class functions {
         return report;
     }
     
+    /**
+     * Metodo para crear el view panel con la representacion grafica del grafo construido basado en la libreria graphstream
+     * @param grafo Grafo de almacenes
+     * @return ViewPanel a ser incrustrado en la ventana correspondiente
+     */
     
     public static ViewPanel create_graph(Grafo grafo){
         System.setProperty("org.graphstream.ui","swing");
@@ -368,7 +446,9 @@ public class functions {
         return view;
         
     }
-    
+    /**
+     * Variable que define la estetica de la representacion grafica del grafo
+     */
     protected static String styleSheet =
             "node {" +
             "size: 50px, 50px;\n" +
@@ -397,6 +477,11 @@ public class functions {
             "text-padding: 5;\n"+
             "text-alignment: above;}";
     
+    /**
+     * Metodo para realizar el guardado del archivo de manera que se actualice la informacion guardada
+     * @param file Archivo en el que se realiza el guardado
+     * @param grafo  Grafo de almacenes 
+     */
     
     public static void write_txt(File file, Grafo grafo){
         String info="";
@@ -437,9 +522,15 @@ public class functions {
             JOptionPane.showMessageDialog(null, "Guardado Exitoso");
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "Guardado Ha Fallado");
         }
     }
+    
+    /**
+     * Metodo para leer el archivo de texto y cargar la estructura de datos con la informacion dada
+     * @param file el Archivo a leer
+     * @param grafo la estructura de datos a cargar
+     */
     
    public static void read_txt(File file, Grafo grafo){
         String read = "";
@@ -503,7 +594,7 @@ public class functions {
             
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "Carga ha fallado \n Asegurese que el archivo es correcto");
         }
         
     }

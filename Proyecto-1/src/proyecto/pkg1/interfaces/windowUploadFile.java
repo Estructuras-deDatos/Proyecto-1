@@ -1,4 +1,5 @@
 package proyecto.pkg1.interfaces;
+import java.awt.HeadlessException;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -151,6 +152,7 @@ public class windowUploadFile extends javax.swing.JFrame {
     private void selectFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFileButtonActionPerformed
         if (loaded){JOptionPane.showMessageDialog(this, "Advertencia: si carga otro archivo, se borrará su información previa.", "Importante", JOptionPane.INFORMATION_MESSAGE, windowMain.auxFunc.setJOptionPaneImage("/Users/beatrizcardozo/Desktop/PROYECTO/Proyecto-1/Proyecto-1/src/proyecto/pkg1/interfaces/images/alertIcon.png"));}
         JFileChooser chooser = new JFileChooser();
+        try{
         if(chooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
             file=chooser.getSelectedFile();
             filePath.setText(file.getAbsolutePath());
@@ -159,6 +161,9 @@ public class windowUploadFile extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo!", "Importante", JOptionPane.INFORMATION_MESSAGE, windowMain.auxFunc.setJOptionPaneImage("/Users/beatrizcardozo/Desktop/PROYECTO/Proyecto-1/Proyecto-1/src/proyecto/pkg1/interfaces/images/alertIcon.png"));
             read = false;
+        }}
+        catch(Exception e){
+           JOptionPane.showMessageDialog(null, "Error adjuntando el archivo", "Importante", JOptionPane.INFORMATION_MESSAGE, windowMain.auxFunc.setJOptionPaneImage("/Users/beatrizcardozo/Desktop/PROYECTO/Proyecto-1/Proyecto-1/src/proyecto/pkg1/interfaces/images/alertIcon.png"));
         }
     }//GEN-LAST:event_selectFileButtonActionPerformed
     //Cierre del método
@@ -168,13 +173,19 @@ public class windowUploadFile extends javax.swing.JFrame {
      * @param evt El parámetro evt contiene la información del evento llevado a cabo por el usuario.
      */
     private void uploadFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadFileButtonActionPerformed
+        
         if(read){
            windowMain.grafo = new Grafo();
             functions.read_txt(file, windowMain.grafo); 
+            try{
             NodoV last = (NodoV) windowMain.grafo.getList().getpLast();
             windowMain.WareId= last.getId()+1;
-            loaded = true;
-       } else {
+            loaded = true;}
+            catch(Exception e){
+                    loaded = false;
+            }
+        }
+        else {
            loaded = false;
        }
     }//GEN-LAST:event_uploadFileButtonActionPerformed
