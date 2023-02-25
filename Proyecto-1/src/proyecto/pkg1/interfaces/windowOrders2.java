@@ -184,6 +184,7 @@ public class windowOrders2 extends javax.swing.JFrame {
         String productorder = productTextField.getText().toLowerCase().trim();
         
        if(windowMain.auxFunc.enabledButtons(qtyTextField, productTextField, addtoOrderButton)){
+          if(!functions.checkOrdered(Order, productorder)){
            NodoP product = windowMain.auxFunc.searchProduct(NodoWh, productorder);
             if (product != null){
                 if(product.enoughStock(Integer.parseInt(qtyorder))){
@@ -236,6 +237,10 @@ public class windowOrders2 extends javax.swing.JFrame {
                 productTextField.setText("");
                 qtyTextField.setText("");
             }
+           }
+           else{
+               JOptionPane.showMessageDialog(this, "Atencion!: Producto ya ingresado.");
+           }
        }
         
     }//GEN-LAST:event_addtoOrderButtonActionPerformed

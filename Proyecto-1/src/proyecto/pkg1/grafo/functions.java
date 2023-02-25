@@ -23,6 +23,19 @@ import proyecto.pkg1.interfaces.auxFunctions;
  */
 public class functions {
     
+    public static boolean checkOrdered(ListV order, String input){
+        NodoV aux = (NodoV) order.getpFirst();
+        boolean ordered=false;
+        while(aux!=null){
+            Object [] info = (Object[]) aux.getData();
+            String product = (String)info[1];
+            if(product.toLowerCase().equals(input.toLowerCase())){
+                ordered=true;
+            }
+            aux=(NodoV) aux.getNext();
+        }
+        return ordered;
+    }
     
     public static void updateStock(ListV order){
         NodoV aux = (NodoV) order.getpFirst();
@@ -31,7 +44,7 @@ public class functions {
             NodoV warehouse =(NodoV) info[0];
             String product = (String)info[1];
             Integer quant = (Integer) info[2];
-            NodoP toUpdate = warehouse.getStock().Search(product);
+            NodoP toUpdate = warehouse.getStock().Search(product.toLowerCase());
             toUpdate.setStock(toUpdate.getStock()-quant);
             warehouse.getStock().update();
             aux=(NodoV)aux.getNext();
