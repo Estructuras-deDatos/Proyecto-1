@@ -7,8 +7,8 @@ package proyecto.pkg1;
 import proyecto.pkg1.interfaces.windowMain;
 
 /**
- *
- * @author andre
+ * Clase main del proyecto que inicia el programa
+ * @author Andreina Rivas
  */
 public class Proyecto1 {
 

@@ -6,7 +6,7 @@ package proyecto.pkg1.grafo;
 
 /**
  * Esta clase define una cola de NodoV para manejar el recorrido del grafo en amplitud
- * @author andre
+ * @author Andreina Rivas
  * @version 24/02/2022
  */
 public class Queue {

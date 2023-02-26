@@ -7,7 +7,7 @@ package proyecto.pkg1.grafo;
 import proyecto.pkg1.abstracts.List;
 
 /** Esta clase define listas enlazadas para NodoV que contienen los vertices del grafo principalmente, y otros objetos necesarios en el funcionamiento
- * @author andre
+ * @author Andreina Rivas
  * @version 24/02/2023
  */
 public class ListV extends List{
@@ -24,7 +24,7 @@ public class ListV extends List{
     public void Empty(){
         setpFirst(null);
         setpLast(null);
-        setSize(0);
+        size = 0;
     }
     /**
     * Metodo que busca un nodo en la lista a partir de la informacion que contiene el nodo

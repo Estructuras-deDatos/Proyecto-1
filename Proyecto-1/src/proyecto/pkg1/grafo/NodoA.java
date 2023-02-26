@@ -8,7 +8,7 @@ import proyecto.pkg1.abstracts.Nodo;
 
 /**
  * Esta clase define objetos de nodos que guardan la informacion de las aristas del grafo
- * @author andre
+ * @author Andreina Rivas
  * @version 24/02/2022
  */
 public class NodoA extends Nodo {

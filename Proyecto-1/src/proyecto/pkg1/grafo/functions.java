@@ -19,7 +19,7 @@ import proyecto.pkg1.interfaces.auxFunctions;
 
 /**
  * Esta clase define metodos estaticos para el manejo y procesamiento de las demas clases
- * @author andre
+ * @author Andreina Rivas
  * @version 24/02/2022
  */
 public class functions {

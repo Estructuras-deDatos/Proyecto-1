@@ -7,15 +7,20 @@ package proyecto.pkg1.abstracts;
 import java.beans.PropertyChangeSupport;
 
 /**
- *
- * @author andre
+ * Clase abstracta correspondiente a las listas que conforman el programa
+ * @author Andreina Rivas
+ * @version 24/02/2022
  */
 public abstract class List {
     
+    //Campos de la clase
     public Nodo pFirst;
     public Nodo pLast;
     public int size;
-
+    
+    /**
+     *Constructor de la clase, crea una lista vacia
+     */
     public List() {
         this.pFirst = null;
         this.pLast = null;
@@ -31,14 +36,16 @@ public abstract class List {
     public abstract Object Print();
 
     /**
-     * @return the pFirst
+     * Metodo para obtener el primer elemento de la lista
+     * @return el primer Nodo
      */
     public Nodo getpFirst() {
         return pFirst;
     }
 
     /**
-     * @param pFirst the pFirst to set
+     * Metodo para asignar el valor del primer nodo
+     * @param pFirst El valor del primer Nodo
      */
     public void setpFirst(Nodo pFirst) {
         proyecto.pkg1.abstracts.Nodo oldpFirst = this.pFirst;
@@ -47,14 +54,16 @@ public abstract class List {
     }
 
     /**
-     * @return the pLast
+     * Metodo para obtener el ultimo elemento de la lista
+     * @return el utlimo nodo
      */
     public Nodo getpLast() {
         return pLast;
     }
 
     /**
-     * @param pLast the pLast to set
+     * Metodo para establecer el valor del ultimo nodo
+     * @param pLast el valor a asignar del ultimo nodo
      */
     public void setpLast(Nodo pLast) {
         proyecto.pkg1.abstracts.Nodo oldpLast = this.pLast;
@@ -63,20 +72,13 @@ public abstract class List {
     }
 
     /**
-     * @return the size
+     * Metodo para obtener el tamaño de la lista, la cantidad de elementos que almacena
+     * @return el numero de items
      */
     public int getSize() {
         return size;
     }
 
-    /**
-     * @param size the size to set
-     */
-    public void setSize(int size) {
-        int oldSize = this.size;
-        this.size = size;
-        propertyChangeSupport.firePropertyChange(PROP_SIZE, oldSize, size);
-    }
     private final transient PropertyChangeSupport propertyChangeSupport = new java.beans.PropertyChangeSupport(this);
     public static final String PROP_PFIRST = "pFirst";
     public static final String PROP_PLAST = "pLast";

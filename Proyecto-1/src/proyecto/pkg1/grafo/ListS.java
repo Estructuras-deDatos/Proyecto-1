@@ -7,23 +7,28 @@ package proyecto.pkg1.grafo;
 import proyecto.pkg1.interfaces.auxFunctions;
 
 /**
- *
- * @author andre
+ * Esta clase define los objetos correspondientes a las listas de productos disponibles en cada almacen
+ * @author Haidar Bazzi 
+ * @version 24/02/2022
  */
 public class ListS {
     
-    /*Clase de la lista del Almacen*/
+    //Campos de la clase
     private NodoP pFirst;
     private NodoP pLast;
     private int size;
     
-    
+    /**
+     * Constructor de la clase
+     */
     public ListS(){
         this.pFirst = null;
         this.pLast = null;
         this.size = 0;
     }
-    
+    /**
+     * Metodo para actualizar la lista y eliminar los productos que tengan un inventario igual a 0
+     */
     public void update(){
         NodoP aux = getpFirst();
         while(aux!=null){
@@ -33,7 +38,11 @@ public class ListS {
             aux=aux.getNext();
         }
     }
-    
+    /**
+    * Metodo que busca un nodo en la lista a partir de la informacion que contiene el nodo
+    * @param data La informacion que se desea encontrar dentro de la lista
+    * @return el NodoA que contiene la informacion deseada o null en el caso de que no se haye
+    */
     public NodoP Search(Object data){
         NodoP aux;
        for (aux=(NodoP) pFirst; aux!=null;aux=(NodoP) aux.getNext()){
@@ -43,6 +52,12 @@ public class ListS {
        }
        return null;
     }
+    
+   /**
+    * Metodo para insertar un nuevo producto a la lista partiendo del nombre e inventario del producto
+    * @param nameP Nombre del producto
+    * @param stock Numero de items del producto
+    */
     
     public void Insert(String nameP, int stock){
         NodoP newNodo = new NodoP(nameP, stock);
@@ -58,7 +73,10 @@ public class ListS {
         size++;
     }
     
-    
+    /**
+     * Metodo para eliminar un elemento de la lista
+     * @param name Nombre del producto a eliminar
+     */
     public void Remove(String name){
     
         NodoP actual;
@@ -96,10 +114,18 @@ public class ListS {
     
     }
     
+    /**
+     * Metodo para revisar si la lista es vacia
+     * @return Valor logico correspondiente a si la lista contiene elementos
+     */
     public boolean isEmpty(){
         return pFirst == null;
     }
     
+    /**
+     * Metodo para obtener la informacion de todos los elementos de una lista 
+     * @return una Cadena con la informacion de los productos y el inventario disponible
+     */
     
     public String Print(){
         
@@ -117,46 +143,43 @@ public class ListS {
     }
 
     /**
-     * @return the pFirst
+     * Metodo para obtener el primer elemento de la lista
+     * @return el NodoP correspondiente al primer elemento de la lista
      */
     public NodoP getpFirst() {
         return pFirst;
     }
 
     /**
-     * @param pFirst the pFirst to set
+     * Metodo para establecer el primer elemento de la lista
+     * @param pFirst el nodo que sera el primer elemento
      */
     public void setpFirst(NodoP pFirst) {
         this.pFirst = pFirst;
     }
 
     /**
-     * @return the pLast
+     * Metodo para obtener el ultimo elemento de la lista
+     * @return el ultimo nodo
      */
     public NodoP getpLast() {
         return pLast;
     }
 
     /**
-     * @param pLast the pLast to set
+     * Metodo para establecer el ultimo elemento de la lista
+     * @param pLast el nodo a guardar como el ultimo
      */
     public void setpLast(NodoP pLast) {
         this.pLast = pLast;
     }
 
     /**
-     * @return the size
+     * Metodo para obtener el numero de items guardados en la lista
+     * @return el numero de items
      */
     public int getSize() {
         return size;
     }
 
-    /**
-     * @param size the size to set
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    
 }
