@@ -58,9 +58,11 @@ public class functions {
             String product = (String)info[1];
             Integer quant = (Integer) info[2];
             NodoP toUpdate = warehouse.getStock().Search(product.toLowerCase());
+            if(toUpdate!=null){
             toUpdate.setStock(toUpdate.getStock()-quant);
             warehouse.getStock().update();
-            aux=(NodoV)aux.getNext();
+            aux=(NodoV)aux.getNext();}
+            
         }
         order.Empty();
         
